@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
     if user.nil?
       render json: "The username/password entered do no match our records"
     else
+      self.current_user = user
       render json: "Welcome back #{user.username}!"
     end
   end
