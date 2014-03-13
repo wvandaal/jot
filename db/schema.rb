@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313175904) do
+ActiveRecord::Schema.define(version: 20140313205003) do
+
+  create_table "entries", force: true do |t|
+    t.string   "title",       null: false
+    t.integer  "user_id",     null: false
+    t.string   "description"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username",        null: false
@@ -23,5 +32,6 @@ ActiveRecord::Schema.define(version: 20140313175904) do
   end
 
   add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
