@@ -1,4 +1,6 @@
 class Api::SessionsController < ApplicationController
+  before_action :require_signed_out!, :only => [:create]
+  before_action :require_signed_in!, :only => [:destroy]
 
   def create
     user = User.find_by_credentials(

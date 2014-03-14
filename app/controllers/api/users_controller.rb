@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  before_action :require_signed_in!, :only => [:destroy]
+  before_action :require_signed_out!, :only => [:create]
 
   def show
     @user = User.includes(:entries).find(params[:id])
@@ -17,7 +19,13 @@ class Api::UsersController < ApplicationController
   end
 
   def destroy
-    
+    user = User.find(params[:id])
+    if user
+      user.destroy
+      render json: "Your account has been deleted"
+    else
+      render json: "This account does not exist or cannot be deleted"
+    end
   end
 
   private
