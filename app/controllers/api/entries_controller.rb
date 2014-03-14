@@ -21,16 +21,23 @@ class Api::EntriesController < ApplicationController
     end
   end
 
-  def edit
-    @entry = Entry.find(params[:id])
-    render json: @entry
-  end
-
   def update
     @entry = Entry.find(params[:id])
+    if @entry.update_attributes(entry_params);
+      render json: @entry
+    else
+      render json: @entry.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @entry = current_user.entries.where(id: params[:id])
+    if @entry
+      @entry.destroy
+      render json: "Jot successfully deleted."
+    else
+      render json: "You cannot delete this jot.", status: :unprocessable_entity
+    end
   end
 
   private

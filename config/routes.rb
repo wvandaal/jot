@@ -3,10 +3,10 @@ Jot::Application.routes.draw do
 
   namespace :api do
     resources :users, only: [:show, :create, :destroy] do
-      resources :entries, only: [:index, :create]
+      resources :jots, only: [:index, :create], controller: 'entries'
     end
 
-    resources :entries, only: [:show, :update, :destroy]
+    resources :jots, only: [:show, :update, :destroy], controller: 'entries'
     resource :session, only: [:create, :destroy]
   end
 end

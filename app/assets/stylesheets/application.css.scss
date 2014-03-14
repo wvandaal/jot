@@ -52,29 +52,50 @@
     font-weight: 700; 
     color: $grey3;
     text-shadow: 0.1em 0.125em 0 rgba(0, 0, 0, 0.1);
-    @include hover-color();
+    @include transition(color 500ms);
+    &:hover {
+      color: $orange1;
+    }
   }
   > ul {
     width: 40%;
     position: absolute;
-    left: 30%;
-    top: 0.5em;
-    text-align: center;
+    left: 60%;
+    text-align: right;
     list-style-type: none;
     padding: 0;
     > li {
       display: inline-block;
+      margin: 0 1em;
+      overflow: hidden;
       > a {
         font-family: 'Arvo', serif;
-        font-size: 0.9em;
         color: $grey3;
-        padding: 1em 2.25em;
+        border-radius: 5em;
         text-decoration: none;
-        text-transform: uppercase;
+        text-transform: lowercase;
         letter-spacing: 0.15em;
-        @include transition(color 500ms);
+        @include transition(all 500ms);
+        > i {
+          padding: 0 0.5em;
+          border-radius: 2em;
+          font-size: 1.1em;
+          display: inline-block;
+        }
+        &#login:before {
+          font-size: 0.9em;
+          color: $orange1;
+          content: attr(id);
+          display: inline-block;
+          position: relative;
+          left: 10em; 
+          @include transition(all 500ms);
+        }
         &:hover {
           color: $orange1;
+          &#login:before {
+            @include transform(translateX(-10em));
+          }
         }
       }
     }

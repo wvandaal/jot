@@ -22,9 +22,9 @@ class Api::UsersController < ApplicationController
     user = User.find(params[:id])
     if user
       user.destroy
-      render json: "Your account has been deleted"
+      render json: "Your account has been deleted."
     else
-      render json: "This account does not exist or cannot be deleted"
+      render json: "This account does not exist or cannot be deleted.", status: :unprocessable_entity
     end
   end
 

@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'fontello';
+  src: url(font-path('fontello.eot?73688602'));
+  src: url(font-path('fontello.eot?73688602#iefix')) format('embedded-opentype'),
+       url(font-path('fontello.woff?73688602')) format('woff'),
+       url(font-path('fontello.ttf?73688602')) format('truetype'),
+       url(font-path('fontello.svg?73688602#fontello')) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url(font-path('fontello.svg?73688602#fontello')) format('svg');
+  }
+}
+*/
+ 
+ %icon-base {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+     
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+%icon-spin1:before { @extend %icon-base; content: '\e80c'; } /* '' */
+%icon-doc-new:before { @extend %icon-base; content: '\e802'; } /* '' */
+%icon-user:before { @extend %icon-base; content: '\e800'; } /* '' */
+%icon-th-list:before { @extend %icon-base; content: '\e801'; } /* '' */
+%icon-home:before { @extend %icon-base; content: '\e806'; } /* '' */
+%icon-lock:before { @extend %icon-base; content: '\e809'; } /* '' */
+%icon-lock-open:before { @extend %icon-base; content: '\e80a'; } /* '' */
+%icon-upload:before { @extend %icon-base; content: '\e811'; } /* '' */
+%icon-trash:before { @extend %icon-base; content: '\e803'; } /* '' */
+%icon-star:before { @extend %icon-base; content: '\e807'; } /* '' */
+%icon-floppy:before { @extend %icon-base; content: '\e804'; } /* '' */
+%icon-down-circled:before { @extend %icon-base; content: '\e805'; } /* '' */
+%icon-left-circled:before { @extend %icon-base; content: '\e80f'; } /* '' */
+%icon-right-circled:before { @extend %icon-base; content: '\e80e'; } /* '' */
+%icon-star-1:before { @extend %icon-base; content: '\e808'; } /* '' */
+%icon-login:before { @extend %icon-base; content: '\e80d'; } /* '' */
+%icon-tag:before { @extend %icon-base; content: '\e80b'; } /* '' */
+%icon-up-circled2:before { @extend %icon-base; content: '\e810'; } /* '' */
+
+.icon-spin1 { @extend %icon-spin1; }
+.icon-doc-new { @extend %icon-doc-new; }
+.icon-user { @extend %icon-user; }
+.icon-th-list { @extend %icon-th-list; }
+.icon-home { @extend %icon-home; }
+.icon-lock { @extend %icon-lock; }
+.icon-lock-open { @extend %icon-lock-open; }
+.icon-upload { @extend %icon-upload; }
+.icon-trash { @extend %icon-trash; }
+.icon-star { @extend %icon-star; }
+.icon-floppy { @extend %icon-floppy; }
+.icon-down-circled { @extend %icon-down-circled; }
+.icon-left-circled { @extend %icon-left-circled; }
+.icon-right-circled { @extend %icon-right-circled; }
+.icon-star-1 { @extend %icon-star-1; }
+.icon-login { @extend %icon-login; }
+.icon-tag { @extend %icon-tag; }
+.icon-up-circled2 { @extend %icon-up-circled2; }

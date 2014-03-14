@@ -2,11 +2,22 @@ $orange1: #ed786a;
 $grey1: #e4e4e4;
 $grey3: #878787;
 
+@include keyframes(slideInRight) {
+  from {
+    @include transform(translateX(2000px));
+  }
 
-@mixin hover-color() {
-  @include transition(color 500ms);
-  &:hover {
-    color: $orange1;
+  to {
+    @include transform(translateX(0px))
   }
 }
 
+@include keyframes(slideOutRight) {
+  from {
+    @include transform(translateX(0px));
+  }
+
+  to {
+    @include transform(translateX(2000px))
+  }
+}

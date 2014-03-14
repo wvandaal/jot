@@ -3,16 +3,22 @@
   <ul>
     <% if !signed_in? %>
       <li>
-        <%= link_to("#") do %>
-          <i class="icon-home"></i>
+        <%= link_to("#", id: "login") do %>
+          <i class="icon-login"></i>
         <% end %>
       </li>
-
-
     <% else %>
-      <li><%= link_to "Profile" %></li>
-      <li><%= link_to "Jots" %></li>
-      <li><%= link_to "Log Out" %></li>
+      <li>
+        <%= link_to(api_user_url(current_user), id: "profile-link") do %>
+          <i class="icon-logout"></i>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to(api_user_jots_url(current_user), id: "jots-link") do %>
+          <i class="icon-th-list"></i>
+        <% end %>
+      </li>
+      <li><%= link_to(api_session, method: "delete", id: "logout") %></li>
     <% end %>
   </ul>
 </nav>

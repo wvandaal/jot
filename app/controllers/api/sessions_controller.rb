@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
       params[:user][:password])
     
     if user.nil?
-      render json: "The username/password entered do no match our records"
+      render json: "The username/password entered do no match our records.", status: :unprocessable_entity
     else
       sign_in(user)
       render json: "Welcome back #{user.username}!"
