@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  attr_reader :password
+
   has_many :entries
 
   validates :username, presence: true

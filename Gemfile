@@ -52,6 +52,8 @@ gem 'thin'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Backbone
+gem 'backbone-on-rails'
 
 # Assets
 gem 'bourbon'

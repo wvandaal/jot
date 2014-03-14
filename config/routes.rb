@@ -1,11 +1,12 @@
 Jot::Application.routes.draw do
   root to: "site#home"
 
-  namespace :app do
-    resources :user, only: [:show, :create, :destroy] do
-      resources :entry, only: [:index]
+  namespace :api do
+    resources :users, only: [:show, :create, :destroy] do
+      resources :entries, only: [:index, :create]
     end
 
-    resources :entry, only: [:show, :update, :destroy, :create]
+    resources :entries, only: [:show, :update, :destroy]
+    resource :session, only: [:create, :destroy]
   end
 end
