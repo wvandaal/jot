@@ -54,6 +54,7 @@ gem 'thin'
 
 # Backbone
 gem 'backbone-on-rails'
+gem 'ejs'
 
 # Assets
 gem 'bourbon'
