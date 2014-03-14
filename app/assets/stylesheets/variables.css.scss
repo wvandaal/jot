@@ -1,1 +1,12 @@
+$orange1: #ed786a;
+$grey1: #e4e4e4;
+$grey3: #878787;
+
+
+@mixin hover-color() {
+  @include transition(color 500ms);
+  &:hover {
+    color: $orange1;
+  }
+}
 

@@ -57,5 +57,7 @@ gem 'backbone-on-rails'
 gem 'ejs'
 
 # Assets
+gem 'normalize-rails'
 gem 'bourbon'
 gem 'neat'
+gem 'fontello_rails_converter'

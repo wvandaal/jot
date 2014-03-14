@@ -1,1 +1,24 @@
-
+// Hero banner
+#hero-banner {
+  text-align: center;
+  border-bottom: solid 2px $grey1;
+  box-shadow: inset 0px -8px 0px 0px white, inset 0px -10px 0px 0px $grey1;
+  @include span-columns(10);
+  @include shift(1);
+  padding: 7em 0 10em;
+  > .logo {
+    font-weight: 700;
+    font-family: 'Arvo', serif;
+    color: $orange1;
+    text-shadow: 0.05em 0.075em 0 $grey1;
+    letter-spacing: 0.05em;
+  }
+  > h1.logo {
+    font-size: 4em;
+    margin-bottom: 0.25em;
+  }
+  > span.subheader {
+    color: $grey3;
+    letter-spacing: 0.08em;
+  }
+}

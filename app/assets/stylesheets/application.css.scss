@@ -9,10 +9,76 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require normalize-rails
+ *= require fontello
  */
 
- @import "bourbon";
- @import "neat";
- @import "variables";
+
+// Fonts
+@import url(http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900,400italic,600italic,700italic);
+
+// Mixins & Variables
+@import "bourbon";
+@import "neat";
+@import "variables";
+
+// Scoped Styles
+@import "site";
+
+
+// General Styles
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.container { 
+  @include outer-container(); 
+  position: relative;
+}
+
+
+// Navbar Styles
+#navbar {
+  width: 100%;
+  position: relative;
+  @include clearfix();
+  > a#nav-logo {
+    text-decoration: none;
+    font-family: 'Arvo', serif;
+    font-size: 2em; 
+    padding: 0.25em 0.75em;
+    float: left;
+    font-weight: 700; 
+    color: $grey3;
+    text-shadow: 0.1em 0.125em 0 rgba(0, 0, 0, 0.1);
+    @include hover-color();
+  }
+  > ul {
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    top: 0.5em;
+    text-align: center;
+    list-style-type: none;
+    padding: 0;
+    > li {
+      display: inline-block;
+      > a {
+        font-family: 'Arvo', serif;
+        font-size: 0.9em;
+        color: $grey3;
+        padding: 1em 2.25em;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        @include transition(color 500ms);
+        &:hover {
+          color: $orange1;
+        }
+      }
+    }
+  }
+}
 
 

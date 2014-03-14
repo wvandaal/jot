@@ -1,0 +1,18 @@
+<nav id="navbar">
+  <%= link_to("jot.", root_url, id: "nav-logo") %>
+  <ul>
+    <% if !signed_in? %>
+      <li>
+        <%= link_to("#") do %>
+          <i class="icon-home"></i>
+        <% end %>
+      </li>
+
+
+    <% else %>
+      <li><%= link_to "Profile" %></li>
+      <li><%= link_to "Jots" %></li>
+      <li><%= link_to "Log Out" %></li>
+    <% end %>
+  </ul>
+</nav>
