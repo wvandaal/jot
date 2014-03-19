@@ -32,6 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_out!
-    render json: "You must be logged out to do that." if signed_in?
+    render json: "You are already logged in." if signed_in?
   end
 end

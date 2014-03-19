@@ -4,8 +4,9 @@ window.Jot = {
   Views: {},
   Routers: {},
   initialize: function() {
-    // alert('Hello from Backbone!');
-  }
+    new Jot.Routers.AppRouter();
+    Backbone.history.start();
+  }, 
 };
 
 $(document).ready(function(){

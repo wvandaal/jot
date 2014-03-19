@@ -11,10 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.serializeJSON
 //= require jquery_ujs
 //= require turbolinks
 //= require underscore
 //= require backbone
+//= require backbone-rails-sync
+//= require marked
+//= require highlight
+//= require diff_match_patch
 //= require jot
 //= require_tree ../templates
 //= require_tree ./models
@@ -22,3 +27,11 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require_tree .
+
+marked.setOptions({
+  highlight: function (code) {
+    return hljs.highlightAuto(code).value;
+  }
+});
+
+Differ = new diff_match_patch();

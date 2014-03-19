@@ -11,6 +11,7 @@
  *= require_self
  *= require normalize-rails
  *= require fontello
+ *= require highlight/atelier-forest.light
  */
 
 
@@ -25,7 +26,13 @@
 
 // Scoped Styles
 @import "site";
+@import "entries";
 
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
 
 // General Styles
 * {
@@ -34,15 +41,26 @@
 
 .container { 
   @include outer-container(); 
+  height: 100%;
+  width: 100%;
   position: relative;
+  @include animation(fadeInUpBig 1s ease-in-out);
 }
 
+#viewport {
+  height: 100%;
+  width: 100%;
+  margin: -3.5em auto 0;
+  padding-top: 3.5em; 
+  position: relative;
+}
 
 // Navbar Styles
 #navbar {
   width: 100%;
   position: relative;
   @include clearfix();
+  z-index: 10;
   > a#nav-logo {
     text-decoration: none;
     font-family: 'Arvo', serif;
@@ -66,15 +84,13 @@
     padding: 0;
     > li {
       display: inline-block;
-      margin: 0 1em;
       overflow: hidden;
       > a {
-        font-family: 'Arvo', serif;
-        color: $grey3;
+        color: $grey2;
         border-radius: 5em;
         text-decoration: none;
         text-transform: lowercase;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.1em;
         @include transition(all 500ms);
         > i {
           padding: 0 0.5em;

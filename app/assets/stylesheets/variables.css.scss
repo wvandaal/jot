@@ -1,6 +1,35 @@
+/* Variables */
 $orange1: #ed786a;
 $grey1: #e4e4e4;
+$grey2: #bcbcbc;
 $grey3: #878787;
+
+
+/* Mixins */
+@mixin double-border() {
+  border-top: 2px solid $grey1;
+  border-bottom: 2px solid $grey1;
+  box-shadow: inset 0px -10px 0px 0px white, inset 0px -12px 0px 0px $grey1;
+  > header {
+    border-top: 2px solid $grey1;
+    margin-top: 10px;
+  }
+}
+
+/* Animations */
+@include keyframes(fadeInUpBig) {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+    transform: translateY(2000px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
 
 @include keyframes(slideInRight) {
   from {

@@ -1,7 +1,7 @@
 class Api::EntriesController < ApplicationController
 
   def index
-    @entries = User.find(params[:user_id]).entries
+    @entries = params[:user_id].nil? ? Entry.all : User.find(params[:user_id]).entries
     render json: @entries
   end
 
@@ -12,7 +12,7 @@ class Api::EntriesController < ApplicationController
 
   # Use @current_user.entries.build to negate need for :user_id
   def create
-    @entry = User.find(params[:user_id]).entries.build(entry_params)
+    @entry = current_user.entries.build(entry_params)
 
     if @entry.save
       render json: @entry
