@@ -27,11 +27,3 @@
 //= require_tree ./views
 //= require_tree ./routers
 //= require_tree .
-
-marked.setOptions({
-  highlight: function (code) {
-    return hljs.highlightAuto(code).value;
-  }
-});
-
-Differ = new diff_match_patch();

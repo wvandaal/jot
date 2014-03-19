@@ -16,19 +16,3 @@ Jot.Collections.Jots = Backbone.Collection.extend({
     this.user = options.user;
   }
 });
-
-
-function curLine(textarea) {
-  var lines   = $(textarea).val().split("\n"),
-      curPos  = textarea.selectionStart,
-      lineNum = 0,
-      i       = 0,
-      line;
-
-  while ((i < curPos) && (lineNum < lines.length)) {
-    line = lines[lineNum++];
-    i += !!line.length ? line.length : 1;
-  }
-
-  return line;
-}

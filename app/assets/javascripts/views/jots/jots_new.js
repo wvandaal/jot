@@ -39,9 +39,11 @@ Jot.Views.JotsNew = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
 
-    var params = $(e.currentTarget).serializeJSON();
+    var params = $(e.currentTarget).serializeJSON(),
+        newJot = new Jot.Models.Jot();
 
-    console.log(params);
+    newJot.save(params);
+
   },
 
   // Handles any keyup events

@@ -1,4 +1,5 @@
 class Api::EntriesController < ApplicationController
+  before_action :require_signed_in!, only: [:destroy, :create, :update]
 
   def index
     @entries = params[:user_id].nil? ? Entry.all : User.find(params[:user_id]).entries
