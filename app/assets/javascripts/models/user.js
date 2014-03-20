@@ -4,7 +4,7 @@ Jot.Models.User = Backbone.Model.extend({
   urlRoot: "api/users",
 
 
-  authenticate: function(callback) {
+  authenticate: function(options) {
     var that = this;
 
     $.ajax({
@@ -15,10 +15,6 @@ Jot.Models.User = Backbone.Model.extend({
         username: this.get('username'),
         password: this.get('password')
       }
-    }).done(function(data) {
-      console.log(data);
-    }).fail(function(data) {
-      console.log(data);
-    });
+    }).done(options.success).fail(options.fail);
   }
 });

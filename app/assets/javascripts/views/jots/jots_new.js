@@ -48,13 +48,13 @@ Jot.Views.JotsNew = Backbone.View.extend({
 
   // Handles any keyup events
   handleKeyup: function() {
-    this.renderMarkdown();
+    this._renderMarkdown();
   },
 
   // TODO: add additional hotkeys to allow greater editing functionality:
   // 1) SUPER + '[' or ']' for indenting (allow use with selection)
   handleKeydown: function(e) {
-    this.preventTabFocus(e);
+    this._preventTabFocus(e);
   },
 
   // Resizes the markdown output to fill the width of the form
@@ -97,7 +97,7 @@ Jot.Views.JotsNew = Backbone.View.extend({
   // Renders the content of the #jot-cotent as markdown in the #markdown-output
   // <div>. Note that this function uses a workaround to prevent double-escaping
   // of highlighted code by manually calling the marked.lexer and .parser
-  renderMarkdown: function() {
+  _renderMarkdown: function() {
     var md        = this.$("#jot-content").val(),
         $output   = this.$("#markdown-output"),
         tokens    = marked.lexer(md),
@@ -115,7 +115,7 @@ Jot.Views.JotsNew = Backbone.View.extend({
     cur = marked.parser(tokens);
 
     // Insert a new waypoint and render the content in the output div
-    $output.html(this.insertWaypoint(prev, cur));
+    $output.html(this._insertWaypoint(prev, cur));
 
     if (!!$output.find('#_waypoint').length) {
       
@@ -128,7 +128,7 @@ Jot.Views.JotsNew = Backbone.View.extend({
 
   // Inserts a waypoint into the output markdown to allow scroll-following
   // in the output as the user edits within the textarea
-  insertWaypoint: function(prev, cur) {
+  _insertWaypoint: function(prev, cur) {
     var waypoint  = '<span id="_waypoint">.</span>',
         closeRegx = /<\/\w+>/,
         _prev     = prev.replace(waypoint, ""),
@@ -156,9 +156,11 @@ Jot.Views.JotsNew = Backbone.View.extend({
   }, 
 
   // Allows users to indent using the 'tab' key
-  preventTabFocus: function(e) {
-    // Prevent tab focus
+  _preventTabFocus: function(e) {
+
     if (e.keyCode === 9) {
+        e.preventDefault();
+
         // get caret position/selection
         var input = document.querySelector('#jot-content'),
             start = input.selectionStart,
@@ -170,11 +172,9 @@ Jot.Views.JotsNew = Backbone.View.extend({
 
         // Move the caret to the correct position and add +1 for the tab
         input.selectionStart = input.selectionEnd = start + 1;
-
-        // Prevent the focus lose
-        e.preventDefault();
     }
-    this.renderMarkdown();
+
+    this._renderMarkdown();
   }, 
 
   resetOutput: function() {

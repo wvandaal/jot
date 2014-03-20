@@ -67,6 +67,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "bcb868184ff9c35f8aef564f50c0d649",
+      "css": "feather",
+      "code": 59414,
+      "src": "entypo"
+    },
+    {
       "uid": "a204f0fa972408eaae5a363c444991b2",
       "css": "login-1",
       "code": 59411,

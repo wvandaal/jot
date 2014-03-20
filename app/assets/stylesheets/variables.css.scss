@@ -1,8 +1,15 @@
 /* Variables */
 $orange1: #ed786a;
+$grey0: #efefef;
 $grey1: #e4e4e4;
 $grey2: #bcbcbc;
 $grey3: #878787;
+$navy: #2D313C;
+
+$transparent-white: rgba(255,255,255,0.75);
+$transparent-grey1: rgba(0,0,0,0.025);
+$transparent-grey2: rgba(0,0,0,0.1);
+$corner-radius: 0.35em;
 
 
 /* Mixins */
@@ -22,6 +29,20 @@ $grey3: #878787;
     opacity: 0;
     -webkit-transform: translateY(2000px);
     transform: translateY(2000px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@include keyframes(fadeInDownBig) {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    transform: translateY(-2000px);
   }
 
   100% {

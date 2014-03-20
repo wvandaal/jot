@@ -1,28 +1,30 @@
-<nav id="navbar">
-  <%= link_to("jot.", root_url, id: "nav-logo") %>
-  <ul>
-    <% if !signed_in? %>
-      <li>
-        <%= link_to("#/login", id: "login") do %>
-          <i class="icon-login-1"></i>
-        <% end %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to(api_user_url(current_user), id: "profile-link") do %>
-          <i class="icon-user"></i>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to(api_user_jots_url(current_user), id: "jots-link") do %>
-          <i class="icon-th-list"></i>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to(api_session_url, method: "delete", id: "logout") do %>
-          <i class="icon-logout"></i>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-</nav>
+<div id="navbar">
+  <nav>
+    <%= link_to("jot.", root_url, id: "nav-logo") %>
+    <ul>
+      <% if !signed_in? %>
+        <li>
+          <%= link_to("#/login", id: "login") do %>
+            <i class="icon-login-1"></i>
+          <% end %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to(api_user_url(current_user), id: "profile-link") do %>
+            <i class="icon-user"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to(api_user_jots_url(current_user), id: "jots-link") do %>
+            <i class="icon-th-list"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to("#/logout", method: "delete", id: "logout") do %>
+            <i class="icon-logout"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

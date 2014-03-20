@@ -1,0 +1,61 @@
+.modal {
+  z-index: 20;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $transparent-white;
+  @include animation(fadeInDownBig 1s);
+  > * {
+    position: absolute;
+    z-index: 21;
+  }
+  > form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    width: 40%;
+    min-height: 300px;
+    height: 50%;
+    top: 20%;
+    left: 30%;
+    padding: 2em;
+    background: $grey1;
+    border-radius: $corner-radius;
+    @include outer-container(); 
+    text-align: center;
+    > header {
+      > h1 {
+        margin-top: 0;
+        color: $orange1;
+        letter-spacing: 0.2em;
+        // text-shadow: 0.05em 0.075em 0 $grey2;
+      }
+    }
+    > input {
+      background: #f5f5f5;
+      margin-bottom: 2em;
+      flex: 1 100%;
+      @include omega();
+    }
+    > button {
+      flex: 1 auto;
+      padding: 1em;
+      box-shadow: 0.125em 0.175em 0 0 $transparent-grey2;
+      color: white;
+      font-size: 1.1em;
+      &.login {
+        background: $orange1;
+      }
+    }
+    > span {
+      color: $navy;
+      letter-spacing: 0.2em;
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0.75em 1.5em;
+    }
+  }
+}

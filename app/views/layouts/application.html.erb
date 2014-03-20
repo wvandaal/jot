@@ -10,12 +10,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render partial: "layouts/header" %>
 
-  
-  <div id="viewport">
-    <%= yield %>
-  </div>
+<!-- Navbar dynamically rendered here by Backbone -->
+<div id="navbar"></div>
+
+ 
+<div id="viewport">
+  <%= yield %>
+</div>
+
+<!-- Current user bootstraped JSON -->
+<script type="application/json" id="currentUser">
+  <% if signed_in? %>
+    {
+      "currentUser": {
+        "id": <%= current_user.try(:id).to_json.html_safe %>, 
+        "username": <%= current_user.try(:username).to_json.html_safe %>,
+        "email": <%= current_user.try(:email).to_json.html_safe %>
+      }
+    }
+  <% else %>
+    {"currentUser": null}
+  <% end %>
+</script>
 
 </body>
 </html>

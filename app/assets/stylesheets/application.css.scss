@@ -27,6 +27,7 @@
 // Scoped Styles
 @import "site";
 @import "entries";
+@import "sessions";
 
 
 html, body {
@@ -39,12 +40,20 @@ html, body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.logo {
+  font-weight: 700;
+  font-family: 'Arvo', serif;
+  color: $orange1;
+  text-shadow: 0.05em 0.075em 0 $grey1;
+  letter-spacing: 0.05em;
+}
+
 .container { 
   @include outer-container(); 
   height: 100%;
   width: 100%;
   position: relative;
-  @include animation(fadeInUpBig 1s ease-in-out);
+  @include animation(fadeInUpBig 750ms ease-in-out);
 }
 
 #viewport {
@@ -55,62 +64,88 @@ html, body {
   position: relative;
 }
 
-// Navbar Styles
-#navbar {
-  width: 100%;
-  position: relative;
-  @include clearfix();
-  z-index: 10;
-  > a#nav-logo {
-    text-decoration: none;
-    font-family: 'Arvo', serif;
-    font-size: 2em; 
-    padding: 0.25em 0.75em;
-    float: left;
-    font-weight: 700; 
-    color: $grey3;
-    text-shadow: 0.1em 0.125em 0 rgba(0, 0, 0, 0.1);
-    @include transition(color 500ms);
-    &:hover {
-      color: $orange1;
+form {
+  font-size: 0.9em;
+  display: block;
+  input, textarea {
+    background: $grey1;
+    -webkit-appearance: none;
+    display: block;
+    border-radius: $corner-radius;
+    padding: 0.75em 1em 0.75em 1em;
+    margin-bottom: 1em; 
+    border: none;
+    box-shadow: none;
+    &:focus {
+      background: white;
+      outline: none;
     }
   }
-  > ul {
-    width: 40%;
-    position: absolute;
-    left: 60%;
-    text-align: right;
-    list-style-type: none;
-    padding: 0;
-    > li {
-      display: inline-block;
-      overflow: hidden;
-      > a {
-        color: $grey2;
-        border-radius: 5em;
-        text-decoration: none;
-        text-transform: lowercase;
-        letter-spacing: 0.1em;
-        @include transition(all 500ms);
-        > i {
-          padding: 0 0.5em;
-          border-radius: 2em;
-          font-size: 1.1em;
-          display: inline-block;
-        }
-        &#login:before {
-          font-size: 0.9em;
-          color: $orange1;
-          content: attr(id);
-          display: inline-block;
-          position: relative;
-          left: 10em; 
+  button {
+    border: none;
+    @include transition(all 500ms);
+    border-radius: $corner-radius;
+  }
+}
+
+// Navbar Styles
+#navbar {
+  > nav {
+    width: 100%;
+    position: relative;
+    @include clearfix();
+    z-index: 10;
+    > a#nav-logo {
+      text-decoration: none;
+      font-family: 'Arvo', serif;
+      font-size: 2em; 
+      padding: 0.25em 0.75em;
+      float: left;
+      font-weight: 700; 
+      color: $grey3;
+      text-shadow: 0.1em 0.125em 0 $transparent-grey2;
+      @include transition(color 500ms);
+      &:hover {
+        color: $orange1;
+      }
+    }
+    > ul {
+      width: 40%;
+      position: absolute;
+      left: 60%;
+      text-align: right;
+      list-style-type: none;
+      padding: 0;
+      > li {
+        display: inline-block;
+        overflow: hidden;
+        > a {
+          color: $grey2;
+          border-radius: 5em;
+          text-decoration: none;
+          text-transform: lowercase;
+          letter-spacing: 0.1em;
           @include transition(all 500ms);
-        }
-        &:hover {
-          color: $orange1;
+          > i {
+            padding: 0 0.5em;
+            border-radius: 2em;
+            font-size: 1.1em;
+            display: inline-block;
+          }
           &#login:before {
-            @include transform(translateX(-10em));
+            font-size: 0.9em;
+            color: $orange1;
+            content: attr(id);
+            display: inline-block;
+            position: relative;
+            left: 10em; 
+            @include transition(all 500ms);
+          }
+          &:hover {
+            color: $orange1;
+            &#login:before {
+              @include transform(translateX(-10em));
+            }
           }
         }
       }
