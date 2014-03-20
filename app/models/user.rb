@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
     super
   end
 
+  def to_json(options={})
+    options[:except] ||= [:password_digest, :session_token]
+    super
+  end
+
   def self.find_by_credentials(username, pwd)
     user = User.find_by_username(username)
     return nil if user.nil?

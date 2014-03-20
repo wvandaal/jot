@@ -23,11 +23,7 @@
 <script type="application/json" id="currentUser">
   <% if signed_in? %>
     {
-      "currentUser": {
-        "id": <%= current_user.try(:id).to_json.html_safe %>, 
-        "username": <%= current_user.try(:username).to_json.html_safe %>,
-        "email": <%= current_user.try(:email).to_json.html_safe %>
-      }
+      "currentUser": <%= current_user.to_json.html_safe %>
     }
   <% else %>
     {"currentUser": null}

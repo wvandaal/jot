@@ -16,5 +16,15 @@ Jot.Models.User = Backbone.Model.extend({
         password: this.get('password')
       }
     }).done(options.success).fail(options.fail);
+  },
+
+  jots: function() {
+    if (!!!this._jots) {
+      this._jots = new Jot.Collections.Jots([], {
+        user: this
+      });
+    }
+
+    return this._jots;
   }
 });

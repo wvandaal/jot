@@ -3,8 +3,8 @@ class Api::UsersController < ApplicationController
   before_action :require_signed_out!, :only => [:create]
 
   def show
-    @user = User.includes(:entries).find(params[:id])
-    render json: @user.as_json(include: :entries)
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   def create
