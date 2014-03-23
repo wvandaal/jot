@@ -1,1 +1,100 @@
+.jots-nav { 
+  height: 95%;
+  @include span-columns(5);
+  > header {
+    margin-left: 0.5em;
+    color: $grey2;
+    line-height: 3em;
+    > img.user-badge {
+      width: 3em;
+      border-radius: 2em;
+      float: left;
+      margin-right: 1em;
+    }
+    > h2 {
+      letter-spacing: 0.01em;
+    }
+  }
+  > #user-jots {
+    overflow-y: scroll;
+    height: 85%;
+    position: relative;
+    ul.jots-list {
+      margin: 0;  
+      padding: 0;
+      list-style: none;
+      > li {
+        max-height: 6em;
+        padding: 1em;
+        border-top: 1px solid $grey0;
+        overflow-y: hidden;
+        &:last-child {border-bottom: 1px solid $grey0;}
+        &:hover {
+          background: $transparent-grey1;
+        }
+        > h3.jot-title {
+          margin: 0;
+        }
+        > span.jot-description {
+          color: $grey3;
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}
 
+#jot-preview {
+  @include span-columns(7);
+  height: 95%;
+  position: relative;
+  > header {
+    margin-top: 1em;
+    width: 100%;
+    height: 4.5em;
+    border-bottom: 1px solid $grey0;
+    text-align: center;
+    z-index: 10;
+    > h4#preview-title {
+      margin: 0.25em 0;
+    }
+    > span#preview-description {
+      font-size: 0.9em;
+    }
+  }
+  #markdown-output {
+    position: absolute;
+    width: 100%;
+    top: 6em;
+    bottom: 3em;
+    overflow-y: scroll;
+    font-size: 0.9em;
+  }
+  > footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    > nav {
+      > ul {
+        list-style-type: none;
+        float: left;
+        padding: 0;
+        > li {
+          > a {
+            text-decoration: none;
+            color: $grey3;
+            & > i {font-size: 1.25em;}
+            padding: 0.25em 0.5em;
+            &:first-child {padding-left: 0;}
+            @include transition(color 500ms);
+            &:hover {
+              color: $orange1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

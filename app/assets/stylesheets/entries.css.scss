@@ -5,11 +5,12 @@ form#jot-form {
   top: 2em;
   height: 95%;
   overflow: hidden;
-  > * {
-    position: relative;
-    top: -3.5em;
-  }
-  >input, >textarea, div#markdown-output {
+  // > * {
+  //   position: relative;
+  //   top: -3.5em;
+  // }
+  >input, >textarea, #markdown-output {
+    position: absolute; //
     background: $grey1;
     -webkit-appearance: none;
     display: block;
@@ -25,16 +26,22 @@ form#jot-form {
   }
   > input#jot-title {
     @include span-columns(4);
+    top: -3em;
+    left: 0;
   }
   > input#jot-description {
+    top: -3em;
+    right: 0;
     @include span-columns(8);
     @include omega(); 
   }
   > div#markdown-output {
+    top: 0;
+    right: 0;
     background: $transparent-grey1;
     @include span-columns(6);
     @include omega();
-    #_waypoint { 
+    #_WAYPOINT { 
       visibility: hidden;
       font-size: 0;
     }
@@ -53,12 +60,16 @@ form#jot-form {
     @include span-columns(6);
     display: block;
     resize: none;
+    top: 0;
+    left: 0;
   }
   #markdown-output, #jot-content {
     height: 85%;
     overflow-y: scroll;
   }
   .button-group {
+    position: absolute;
+    bottom: 3em;
     @include span-columns(12);
     > button {
       border: none;
@@ -97,6 +108,23 @@ form#jot-form {
   pre, code {
     * {
       font-family: monospace, monospace;
+    }
+  }
+  blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 0.75em solid $grey1;
+  }
+  table {
+    border: 1px solid $grey1;
+    thead, tr:not(:last-child) {
+      border-bottom: 1px solid $grey1;
+    }
+    th, td {
+      padding: 0.75em;
+      &:not(:last-child) {
+        border-right: 1px solid $grey1;
+      }
     }
   }
 }

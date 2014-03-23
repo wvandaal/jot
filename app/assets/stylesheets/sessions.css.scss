@@ -5,7 +5,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: $transparent-white;
+  background: $transparent-white1;
   @include animation(fadeInDownBig 1s);
   > * {
     position: absolute;
@@ -17,8 +17,6 @@
     justify-content: center;
     align-content: center;
     width: 40%;
-    min-height: 300px;
-    height: 50%;
     top: 20%;
     left: 30%;
     padding: 2em;
@@ -46,8 +44,14 @@
       box-shadow: 0.125em 0.175em 0 0 $transparent-grey2;
       color: white;
       font-size: 1.1em;
+      &:focus {
+        outline: none;
+      }
       &.login {
         background: $orange1;
+      }
+      &.signup {
+        background: $green;
       }
     }
     > span {

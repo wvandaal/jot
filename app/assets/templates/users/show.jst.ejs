@@ -1,0 +1,51 @@
+<!-- User nav -->
+<div class="jots-nav">
+  <header>
+    <img class="user-badge" src="https://secure.gravatar.com/avatar/<%= user.get('gravatar_id') %>">
+    <h2><%= user.get('username') %>'s jots</h2>
+  </header>
+  <div id="user-jots">
+    <ul class="jots-list">
+      <% if (!!jots.length) { %>
+        <% jots.forEach(function(jot) { %>
+          <li>
+            <h3 class="jot-title"><%= jot.escape('title') %></h3>
+            <span class="jot-description">
+              <%= jot.get('description') ? jot.escape('description') : "<em>no description</em>" %>
+            </span>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <li>
+          <h3 class="jot-title">You don't have any jots yet</h3>
+          <span class="jot-description">
+            <a href="#/jots/new">Click here</a> to create your first jot.
+          </span>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+
+<!-- Jot Preview -->
+<div id="jot-preview">
+  <header>
+    <h4 id="preview-title"><%= jots.first().escape('title') %></h4>
+    <span id="preview-description"><%= jots.first().escape('description') %></span>
+  </header>
+  <div id="markdown-output">
+    <%= this.renderPreview(jots.last().get('content')) %>
+  </div>
+  <footer>
+    <nav>
+      <ul>
+        <li>
+          <a id="edit" href="#/jots/<%= jots.first().get('id') %>/edit">
+            <i class="icon-pencil"></i>
+            edit
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+</div>

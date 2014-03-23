@@ -67,6 +67,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "3a230e539a4f3b904debd04c6c155034",
+      "css": "help",
+      "code": 59417,
+      "src": "entypo"
+    },
+    {
+      "uid": "c77fd2fd065b5fe16d6f2b41e190b266",
+      "css": "pencil",
+      "code": 59419,
+      "src": "entypo"
+    },
+    {
       "uid": "bcb868184ff9c35f8aef564f50c0d649",
       "css": "feather",
       "code": 59414,
@@ -125,6 +137,24 @@
       "css": "star-1",
       "code": 59400,
       "src": "typicons"
+    },
+    {
+      "uid": "ccd52a22af21fbaa98a9c85fb50fca6b",
+      "css": "info",
+      "code": 59418,
+      "src": "iconic"
+    },
+    {
+      "uid": "3e02a8849305ac80a0e36302f461f265",
+      "css": "help-circled-alt",
+      "code": 59416,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "15ba51cbb4d05e6fb88f03a31a7c711c",
+      "css": "info-circled-alt",
+      "code": 59415,
+      "src": "mfglabs"
     },
     {
       "uid": "630529f03c319c01101aa167181b650e",

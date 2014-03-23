@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
-  attr_reader :password
+  attr_reader :password, :password_confirmation
 
   has_many :entries
 
   validates :username, presence: true
   validates :password_digest, presence: {message: "Password can't be blank"}
-  validates :password, length: {minimum: 6, allow_nil: true}
+  validates :password, length: {minimum: 6, allow_nil: true}, confirmation: true
+  validates :password_confirmation, presence: {:if => :password}
   validates :email, :username, uniqueness: true
   validates :session_token, presence: true
 
@@ -13,13 +14,19 @@ class User < ActiveRecord::Base
 
   # Overide as_json method to prevend exposing session_token and password
   def as_json(options={})
-    options[:except] ||= [:password_digest, :session_token]
-    super
+    options[:except] ||= [:password_digest, :session_token, :email]
+    json = super
+    json["gravatar_id"] = Digest::MD5::hexdigest(self.email)
+    json
   end
 
   def to_json(options={})
-    options[:except] ||= [:password_digest, :session_token]
-    super
+    options[:except] ||= [:password_digest, :session_token, :email]
+    super(methods: :gravatar_id)
+  end
+
+  def gravatar_id
+    Digest::MD5::hexdigest(self.email)
   end
 
   def self.find_by_credentials(username, pwd)

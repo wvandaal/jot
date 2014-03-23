@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user
+    render json: @user.as_json
   end
 
   def create
@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
       sign_in(@user)
       render json: @user
     else
-      render json: @user.errors.fullmessages
+      render json: @user.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -31,6 +31,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end

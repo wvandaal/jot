@@ -35,14 +35,50 @@
         @include transition(color 500ms);
         > i {font-size: 2em;}
         &:before {
-          content: "( enter )";
+          content: "( start )";
           position: absolute;
           top: -2em;
-          left: 0.95em;
+          left: 1.2em;
           letter-spacing: 0.05em;
         }
         &:hover {
           color: $orange1;
+        }
+      }
+    }
+    > .navbar {
+      position: absolute;
+      width: 100%;
+      top: 80%;
+      > ul {
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+        padding-bottom: 2.5em;
+        > li {
+          display: inline-block;
+          list-style: none;
+          padding: 0 3em;
+          position: relative;
+          top: -1.5em;
+          @include transition(all 500ms);
+          &:hover {
+            @include transform(translateY(2em));
+            > a { color: $orange1; }
+          }
+          > a {
+            width: 100%;
+            color: $grey2;
+            font-size: 2em;
+            text-decoration: none;
+            @include transition(all 500ms);          
+            &:before {
+              content: attr(id);
+              font-size: 0.5em;
+              display: block;
+              letter-spacing: 0.05em;
+            }
+          }
         }
       }
     }

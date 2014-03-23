@@ -28,11 +28,13 @@
 @import "site";
 @import "entries";
 @import "sessions";
+@import "users";
 
 
 html, body {
   height: 100%;
   width: 100%;
+  background: $transparent-white2;
 }
 
 // General Styles
@@ -151,6 +153,21 @@ form {
         }
       }
     }
+  }
+}
+
+// Errors Styles
+#errors {
+  position: absolute;
+  width: 40%;
+  left: 30%;
+  top: 0;
+  z-index: 30;
+  text-align: center;
+  > ul {
+    list-style-type: none;
+    color: $orange1;
+    @include animation(1s fadeOut ease-in-out 5s);
   }
 }
 

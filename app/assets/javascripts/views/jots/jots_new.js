@@ -4,8 +4,8 @@ Jot.Views.JotsNew = Backbone.View.extend({
   template: JST["jots/new"],
 
   events: {
-    "click #save": "beforeSubmit",
     "submit form": "submit",
+    "click .save": "beforeSubmit",
     "reset form": "resetOutput",
     "keyup textarea#jot-content": "handleKeyup",
     "keydown textarea#jot-content": "handleKeydown",
@@ -26,13 +26,15 @@ Jot.Views.JotsNew = Backbone.View.extend({
   beforeSubmit: function(e) {
     var $output = $('#markdown-output'),
         $form   = $('#jot-form'),
-        $save   = $('#save'),
-        confirm = "<i class='icon-floppy'></i>save";
+        $save   = $('.save'),
+        confirm = "<i class='icon-check'></i> confirm";
 
     this.resizeLarge(function() {
-      $output.animate({height: "75%", top: 0}, 1000);
-      $form.children(':not(#markdown-output)').animate({top: 0}, 1000);
+      $output.animate({height: "75%", top: "+=4em"}, 1000);
+      $form.find('textarea').animate({top: "+=4em"}, 1000);
+      $form.find('input').animate({top: 1}, 1000);
       $save.attr('type', 'submit').html(confirm);
+      $save.toggleClass('save');
     });
   },
 
@@ -40,9 +42,16 @@ Jot.Views.JotsNew = Backbone.View.extend({
     e.preventDefault();
 
     var params = $(e.currentTarget).serializeJSON(),
-        newJot = new Jot.Models.Jot();
+        newJot = new Jot.Models.Jot(params);
 
-    newJot.save(params);
+    newJot.save({}, {
+      success: function(response) {
+
+      },
+      fail: function(errors) {
+        
+      }
+    });
 
   },
 
@@ -64,9 +73,7 @@ Jot.Views.JotsNew = Backbone.View.extend({
         $button   = $('.resize-large'),
         interval  = 500;
 
-    $input.animate({width: 0, margin: 0, padding: 0}, interval, function() {
-      $input.css({height:0});
-    });
+    $input.animate({width: 0, margin: 0, padding: 0}, interval);
     $output.animate({width: "100%"}, interval).promise().done(callback);
 
     $button.children().toggleClass('icon-resize-full icon-resize-small');
@@ -78,9 +85,9 @@ Jot.Views.JotsNew = Backbone.View.extend({
     var $output   = $('#markdown-output'),
         $input    = $('#jot-content'),
         $button   = $('.resize-small'),
-        width     = "48.82117%"
-        inputMarg = "0 2.35765% 1em 0"
-        inputPad  = "0.75em 1em 0.75em 1em"
+        width     = "48.82117%",
+        inputMarg = "0 2.35765% 1em 0",
+        inputPad  = "0.75em 1em 0.75em 1em",
         interval  = 500;
 
     $output.animate({width: width}, interval);
@@ -117,19 +124,19 @@ Jot.Views.JotsNew = Backbone.View.extend({
     // Insert a new waypoint and render the content in the output div
     $output.html(this._insertWaypoint(prev, cur));
 
-    if (!!$output.find('#_waypoint').length) {
+    if (!!$output.find('#_WAYPOINT').length) {
       
       // Scroll the output div to the waypoint minus half the output height
-      $output.scrollTop($output.scrollTop() 
-        + $output.find('#_waypoint').position().top 
-        - $output.height()/2);
+      $output.scrollTop($output.scrollTop() +
+        $output.find('#_WAYPOINT').position().top -
+        $output.height()/2);
     }
   },
 
   // Inserts a waypoint into the output markdown to allow scroll-following
   // in the output as the user edits within the textarea
   _insertWaypoint: function(prev, cur) {
-    var waypoint  = '<span id="_waypoint">.</span>',
+    var waypoint  = '<span id="_WAYPOINT">.</span>',
         closeRegx = /<\/\w+>/,
         _prev     = prev.replace(waypoint, ""),
         diff, diffInd, waypointInd, match;
@@ -148,8 +155,8 @@ Jot.Views.JotsNew = Backbone.View.extend({
       // the match index. If not, return the previous value
       if (!!match) {
         waypointInd = diffInd + match.index;
-        return cur.substring(0, waypointInd) + waypoint 
-          + cur.substring(waypointInd);
+        return cur.substring(0, waypointInd) + waypoint +
+          cur.substring(waypointInd);
       } 
     } 
     return prev;

@@ -3,16 +3,44 @@ Jot.Views.UsersShow = Backbone.View.extend({
   className: 'container',
   template: JST['users/show'],
 
-  initialize: function(options) {
-    this.user = options.user,
-    this.jots = options.user.entries
+  events: {
+
+  },
+
+  initialize: function() {
+    this.collection.fetch();
   },
 
   render: function() {
-    var content = this.template();
+    console.log(this.collection);
+    var content = this.template({
+      user: this.model,
+      jots: this.collection
+    });
+
     this.$el.html(content);
 
     return this;
+  },
+
+  renderPreview: function(md) {
+    var tokens  = marked.lexer(md),
+        $output = $('#markdown-output'),
+        preview;
+
+    for (var i = 0, tok = tokens[i]; i < tokens.length; ++i) {
+      if (tok.type === "code") {
+        tok.text = highlight(tok.text, tok.lang);
+        tok.escaped = true;
+      }
+    }
+
+    preview = marked.parser(tokens);
+
+    $output.html(preview);    
+
+    return preview;
   }
+
 
 });

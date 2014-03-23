@@ -5,7 +5,8 @@ Jot.Views.SessionsNew = Backbone.View.extend({
 
   events: {
     "submit form": "submit",
-    "click": "close"
+    "click": "close",
+    "click .signup": "renderSignup"
   },
 
   render: function() {
@@ -19,15 +20,20 @@ Jot.Views.SessionsNew = Backbone.View.extend({
     e.preventDefault();
 
     var params = $(e.target).serializeJSON(),
-        user   = new Jot.Models.User(params);
+        user   = new Jot.Models.User(params),
+        $modal = $('.modal');
 
     user.authenticate({
-      success: function(response) {
-        console.log(response);
+      success: function(json) {
+        $modal.animate({top: -2000}, 750, function() {
+          $modal.remove();
+        });
+        Jot.currentUser = new Jot.Models.User(json);
+        Jot.renderNavbar();
       },
 
-      fail: function (xhr) {
-        console.log(xhr.responseText);
+      fail: function (errors) {
+        
       }
     });
 
@@ -40,8 +46,14 @@ Jot.Views.SessionsNew = Backbone.View.extend({
 
       $modal.animate({top: -2000}, 750, function() {
         $modal.remove();
-      })
+      });
     }
+  },
+
+  renderSignup: function() {
+    var signup = new Jot.Views.UsersNew();
+
+    this.$el.html(signup.render().$el);
   }
   
 });

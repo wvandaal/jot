@@ -2,7 +2,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "home",
     "jots/new": "newJot",
-    "logout": "logout",
+    "logout": "logout"
   },
 
   initialize: function() {
@@ -16,7 +16,8 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     // If logged in, root to profile page
     if (!!Jot.currentUser.get('id')) {
       view = new Jot.Views.UsersShow({
-        model: Jot.currentUser
+        model: Jot.currentUser,
+        collection: Jot.currentUser.jots()
       });
     // else render the welcome banner
     } else {
@@ -62,7 +63,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
       }
     } else {
       $('.container').animate({top: -2000}, 1000, function(){
-        that._swapView(null)
+        that._swapView(null);
       });
     }
   },
@@ -71,10 +72,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   _swapView: function(view) {
     this._currentView && this._currentView.remove();
     this._currentView = view;
-    if (!!view) {
-      this.$viewport.html(view.render().$el);
-    } else {
-      this.$viewport.empty();
-    }
+
+    (!!!view ? $.fn.empty : $.fn.html).call(this.$viewport, view.render().$el);
   }
 });

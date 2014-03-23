@@ -4,12 +4,15 @@ $grey0: #efefef;
 $grey1: #e4e4e4;
 $grey2: #bcbcbc;
 $grey3: #878787;
-$grey4: #777;
+$grey4: #777777;
+$green: #1FD6A8;
 $navy: #2D313C;
 
-$transparent-white: rgba(255,255,255,0.75);
+$transparent-white1: rgba(255,255,255,0.75);
+$transparent-white2: rgba(255,255,255,0.95);
 $transparent-grey1: rgba(0,0,0,0.025);
 $transparent-grey2: rgba(0,0,0,0.1);
+$transparent-grey3: rgba(0,0,0,0.3);
 $corner-radius: 0.35em;
 
 
@@ -70,5 +73,15 @@ $corner-radius: 0.35em;
 
   to {
     @include transform(translateX(2000px))
+  }
+}
+
+@include keyframes(slideDown) {
+  from {
+    @include transform(translateY(0px));
+  }
+
+  to {
+    @include transform(translateY(2.5em));
   }
 }

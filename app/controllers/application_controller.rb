@@ -28,10 +28,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_in!
-    render json: session unless signed_in?
+    unless signed_in?
+      render json: ["You must be signed in to do that."], status: :unauthorized 
+    end
   end
 
   def require_signed_out!
-    render json: "You are already logged in." if signed_in?
+    render json: ["You are already logged in."] if signed_in?
   end
 end
