@@ -96,6 +96,7 @@ GEM
     neat (1.5.0)
       bourbon (>= 2.1)
       sass (>= 3.2)
+    newrelic_rpm (3.7.3.204)
     normalize-rails (3.0)
     pg (0.17.1)
     polyglot (0.3.4)
@@ -183,6 +184,7 @@ DEPENDENCIES
   jslint_on_rails
   marked-rails
   neat
+  newrelic_rpm
   normalize-rails
   pg
   rails (= 4.0.3)
