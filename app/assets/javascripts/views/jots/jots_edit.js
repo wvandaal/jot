@@ -32,7 +32,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
     this.model.save(params, {
       success: function(jot) {
-        Jot.Messages = {msgs: ['"' + jot.escape('title') + '"' + 'successfully updated.']};
+        Jot.Messages = {msgs: ['"' + jot.escape('title') + '"' + ' successfully updated.']};
         Backbone.history.navigate('', {trigger: true});
       },
       error: function(model, errors) {
@@ -50,9 +50,9 @@ Jot.Views.JotsEdit = Backbone.View.extend({
         confirm = "<i class='icon-check'></i> confirm";
 
     this.resizeLarge(function() {
-      $output.animate({top: "+=4em"}, 1000);
-      $form.find('textarea').animate({top: "+=4em"}, 1000);
-      $form.find('input').animate({top: 1}, 1000);
+      $output.animate({top: "+=4em"}, 500);
+      $form.find('textarea').animate({top: "+=4em"}, 500);
+      $form.find('input').animate({top: 1}, 500);
       $save.attr('type', 'submit').html(confirm);
       $save.toggleClass('save');
     });
@@ -74,7 +74,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     var $output   = $('#MARKDOWN-OUTPUT'),
         $input    = $('#JOT-CONTENT'),
         $button   = $('.resize-large'),
-        interval  = 500;
+        interval  = 250;
 
     $input.animate({width: 0, padding: 0}, interval);
     $output.animate({width: "100%"}, interval).promise().done(callback);
@@ -91,7 +91,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
         width     = "48.82117%",
         inputMarg = "0 2.35765% 1em 0",
         inputPad  = "0.75em 1em 0.75em 1em",
-        interval  = 500;
+        interval  = 250;
 
     $output.animate({width: width}, interval);
 

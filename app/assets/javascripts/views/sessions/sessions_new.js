@@ -35,6 +35,10 @@ Jot.Views.SessionsNew = Backbone.View.extend({
         promise = Jot.currentUser.fetch();
 
         promise.done(function() {
+          // Rerender navbar
+          Jot.renderNavbar();
+
+          // Animate out modal, remove it, redirect if necessary
           $modal.animate({top: -2000}, 750, function() {
             $modal.remove();
             if (Backbone.history.fragment !== 'jots/new') {

@@ -89,22 +89,19 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
 
   // Swaps views and removes zombies to prevent memory leaks
   _swapView: function(view) {
-    var header = new Jot.Views.Header({
-      model: Jot.currentUser
-    });
 
     this._currentView && this._currentView.remove();
     this._currentView = view;
 
     // Inserts the navbar
-    $('#NAVBAR').html(header.render().$el);
+    Jot.renderNavbar();
 
     // Render any messages on the page
     if (typeof Jot.Messages === 'object' && !!Object.keys(Jot.Messages).length) {
       Jot.renderMessages();
       Jot.Messages = {};
     }
-
+    console.log(jj=view.$el);
     // Renders the view or empties the $viewport
     (!!!view ? $.fn.empty : $.fn.html).call(this.$viewport, view.$el);
   }

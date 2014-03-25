@@ -46,6 +46,14 @@ window.Jot = {
 
     $messages.html(view.$el);
     $messages.children().delay(5000).fadeOut(1000);
+  },
+
+  renderNavbar: function(user) {
+    var header = new Jot.Views.Header({
+      model: user || Jot.currentUser 
+    });
+
+    $('#NAVBAR').html(header.$el);
   }
 };
 

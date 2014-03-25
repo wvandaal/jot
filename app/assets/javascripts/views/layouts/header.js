@@ -32,7 +32,7 @@ Jot.Views.Header = Backbone.View.extend({
           Jot.currentUser = new Jot.Models.User();
 
           // TODO: REMOVE 
-          // Jot.renderNavbar(null);
+          Jot.renderNavbar();
 
           // Note: fragment must be set to null in order to rerender the home page
           if (Backbone.history.fragment === '') {

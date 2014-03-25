@@ -26,11 +26,24 @@ Jot.Views.UsersNew = Backbone.View.extend({
 
     user.save({}, {
       success: function(json) {
-        $modal.animate({top: -2000}, 750, function() {
-          $modal.remove();
-        });
+        var promise;
+
         Jot.currentUser = new Jot.Models.User(json);
-        Jot.renderNavbar();
+        promise = Jot.currentUser.fetch();
+
+        promise.done(function() {
+          // Rerender navbar
+          Jot.renderNavbar();
+
+          // Animate out modal, remove it, redirect if necessary
+          $modal.animate({top: -2000}, 750, function() {
+            $modal.remove();
+            if (Backbone.history.fragment !== 'jots/new') {
+              Backbone.history.fragment = null;
+              Backbone.history.navigate('', {trigger: true});
+            }
+          });
+        });
       },
 
       fail: function (model, errors) {
