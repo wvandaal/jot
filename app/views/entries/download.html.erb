@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= @entry.title %></title>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+  <%= wicked_pdf_stylesheet_link_tag "highlight/atelier-forest.light" %>
+  <%= wicked_pdf_stylesheet_link_tag "normalize-rails" %>
+  <%= wicked_pdf_javascript_include_tag "marked" %>
+  <%= wicked_pdf_javascript_include_tag "highlight" %>
+  <script type="text/javascript">
+  window.onload = function() {
+    var _marked, content;
+
+    //Set highlighting options for marked
+    marked.setOptions({
+      highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+      }
+    });
+
+    _marked = marked;
+
+    // Rewrite marked to prevent double-escaping of code blocks
+    window.marked = function(text) {
+      var tokens = _marked.lexer(text),
+          l      = tokens.length;
+
+      for (var i = 0, tok = tokens[i]; i < l; i++) {
+        if (tok.type === "code") {
+          tok.text = highlight(tok.text);
+          tok.escaped = true;
+        }
+      }
+
+      console.log(tokens[20]);
+
+      return _marked.parser(tokens); 
+    }
+    
+    // Decode escaped html
+    function htmlDecode(input){
+      var e = document.createElement('div');
+      e.innerHTML = input;
+      return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    content = '<%= escape_javascript @entry.content %>';
+    document.querySelector('body').innerHTML=marked(htmlDecode(content));
+  }
+  </script>
+</head>
+<body>
+
+
+</body>
+</html>

@@ -1,18 +1,23 @@
 Jot.Views.UsersShow = Backbone.View.extend({
-  tagName: 'div',
   className: 'container',
   template: JST['users/show'],
 
   events: {
-
+    "click .jot": "toggleJot",
+    "click #DOWNLOAD": "download"
   },
 
   initialize: function() {
-    this.collection.fetch();
+    var p    = this.collection.fetch(),
+        that = this;
+
+    p.done(function() {
+      that.render();
+      that.$('.jot').first().trigger('click');  
+    });
   },
 
   render: function() {
-    console.log(this.collection);
     var content = this.template({
       user: this.model,
       jots: this.collection
@@ -23,24 +28,43 @@ Jot.Views.UsersShow = Backbone.View.extend({
     return this;
   },
 
-  renderPreview: function(md) {
-    var tokens  = marked.lexer(md),
-        $output = $('#markdown-output'),
-        preview;
+  renderMarkdown: function(md) {
+    return marked(md);
+  },
 
-    for (var i = 0, tok = tokens[i]; i < tokens.length; ++i) {
-      if (tok.type === "code") {
-        tok.text = highlight(tok.text, tok.lang);
-        tok.escaped = true;
-      }
-    }
+  toggleJot: function(e) {
+    var $jots = this.$('.jot').removeClass('selected'),
+        $jot  = $(e.currentTarget),
+        title = $jot.find('.jot-title').text();
 
-    preview = marked.parser(tokens);
+    $jot.addClass('selected');
+    this.renderPreview(title);
+  },
 
-    $output.html(preview);    
+  renderPreview: function(title) {
+    var $title        = $('#PREVIEW-TITLE'),
+        $description  = $('#PREVIEW-DESCRIPTION'),
+        $output       = $('#MARKDOWN-OUTPUT'),
+        $viewLink     = $('#VIEW'),
+        $editLink     = $('#EDIT'),
+        $downloadLink = $('#DOWNLOAD'),
+        $deleteLink   = $('#DELETE'),
+        jot           = this.collection.findWhere({title: title}),
+        id            = jot.get('id');
 
-    return preview;
+    $viewLink.attr('href', '#/jots/' + id );
+    $editLink.attr('href', '#/jots/' + id + '/edit');
+    $downloadLink.data('id', id);
+    $deleteLink.attr('href', '#/jots/' + id + '/delete');
+    $title.html(jot.escape('title'));
+    $description.html(jot.escape('description'));
+    $output.html(this.renderMarkdown(jot.get('content')));
+  },
+
+  download: function(e) {
+    var id  = $(e.currentTarget).data('id'),
+        url = 'api/jots/' + id + '/download';
+    $.fileDownload(url);
   }
-
 
 });

@@ -12,16 +12,16 @@
 <body>
 
 <!-- Navbar dynamically rendered here by Backbone -->
-<div id="navbar"></div>
-<div id="errors"></div>
+<div id="NAVBAR"></div>
+<div id="MESSAGES"></div>
 
  
-<div id="viewport">
+<div id="VIEWPORT">
   <%= yield %>
 </div>
 
 <!-- Current user bootstraped JSON -->
-<script type="application/json" id="currentUser">
+<script type="application/json" id="CURRENT-USER">
   <% if signed_in? %>
     {
       "currentUser": <%= current_user.to_json.html_safe %>

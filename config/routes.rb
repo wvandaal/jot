@@ -6,7 +6,11 @@ Jot::Application.routes.draw do
       resources :jots, only: [:index], controller: 'entries'
     end
 
-    resources :jots, only: [:show, :update, :destroy, :create], controller: 'entries'
-    resource :session, only: [:create, :destroy]
+    resources :jots, controller: 'entries', only: [:show, :update, :destroy, :create] do 
+      member do
+        get 'download'
+      end
+    end
+    resource :session, only: [:create, :destroy, :show]
   end
 end

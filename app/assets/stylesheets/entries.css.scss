@@ -1,16 +1,14 @@
-form#jot-form {
+form#JOT-FORM {
   font-size: 0.9em;
   display: block;
   position: relative;
+  @include span-columns(12);
   top: 2em;
-  height: 95%;
+  height: 95%;    // default value for unsupported browsers
+  @include calc(height, "100% - 2em");
   overflow: hidden;
-  // > * {
-  //   position: relative;
-  //   top: -3.5em;
-  // }
-  >input, >textarea, #markdown-output {
-    position: absolute; //
+  >input, >textarea, #MARKDOWN-OUTPUT {
+    position: absolute;
     background: $grey1;
     -webkit-appearance: none;
     display: block;
@@ -24,18 +22,18 @@ form#jot-form {
     }
     box-shadow: none;
   }
-  > input#jot-title {
+  > input#JOT-TITLE {
     @include span-columns(4);
     top: -3em;
     left: 0;
   }
-  > input#jot-description {
+  > input#JOT-DESCRIPTION {
     top: -3em;
     right: 0;
     @include span-columns(8);
     @include omega(); 
   }
-  > div#markdown-output {
+  > div#MARKDOWN-OUTPUT {
     top: 0;
     right: 0;
     background: $transparent-grey1;
@@ -45,7 +43,7 @@ form#jot-form {
       visibility: hidden;
       font-size: 0;
     }
-    > #placeholder {
+    > #PLACEHOLDER {
       color: #ccc;
       margin: 0;
       padding: 0;
@@ -56,22 +54,24 @@ form#jot-form {
       bottom: 1em;
     }
   }
-  >textarea#jot-content {
+  >textarea#JOT-CONTENT {
     @include span-columns(6);
     display: block;
     resize: none;
     top: 0;
     left: 0;
   }
-  #markdown-output, #jot-content {
-    height: 85%;
+  #MARKDOWN-OUTPUT, #JOT-CONTENT {
+    bottom: 5em;
     overflow-y: scroll;
   }
   .button-group {
     position: absolute;
     bottom: 3em;
+    height: 2em;
     @include span-columns(12);
-    > button {
+    > button, a {
+      text-decoration: none;
       border: none;
       color: $grey3;
       background: transparent;
@@ -93,7 +93,7 @@ form#jot-form {
   }
 }
 
-#markdown-output {
+#MARKDOWN-OUTPUT {
   h1, h2, h3, h4, h5, h6 { margin: 0.25em 0 }
   h1 { 
     font-size: 2.5em;

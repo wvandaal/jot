@@ -3,7 +3,11 @@ Jot.Views.UsersNew = Backbone.View.extend({
   template: JST['users/new'],
 
   events: {
-    "click .signup": "submit",
+    "click .signup": "submit"
+  },
+
+  initialize: function() {
+    this.render();
   },
 
   render: function() {
@@ -29,8 +33,8 @@ Jot.Views.UsersNew = Backbone.View.extend({
         Jot.renderNavbar();
       },
 
-      fail: function (errors) {
-        console.log(errors);
+      fail: function (model, errors) {
+        Jot.renderMessages(errors.responseJSON);
       }
     });
   }

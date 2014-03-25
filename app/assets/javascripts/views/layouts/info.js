@@ -1,6 +1,7 @@
-Jot.Views.Home = Backbone.View.extend({
+Jot.Views.Info = Backbone.View.extend({
+  id: 'ABOUT',
   className: 'container',
-  template: JST['layouts/home'],
+  template: JST['layouts/info'],
 
   initialize: function() {
     this.render();

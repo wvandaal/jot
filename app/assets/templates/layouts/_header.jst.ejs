@@ -1,21 +1,21 @@
-<a href="#/" id="nav-logo">jot.</a>
+<a href="#/" id="NAV-LOGO">jot.</a>
 <ul>
   <!-- If the user isn't logged in -->
   <% if (!!!user.get('id')) { %>
     <li>
-      <a href="#/login" id="login"><i class="icon-login-1"></i></a>
+      <a href="#/login" id="LOGIN"><i class="icon-login-1"></i></a>
     </li>
 
   <!-- If the user is logged in -->
   <% } else { %>
     <li>
-      <a href="#/profile" id="profile-link"><i class="icon-user"></i></a>
+      <a href="#/" id="PROFILE-LINK"><i class="icon-user"></i></a>
     </li>
     <li>
-      <a href="#/user-jots" id="jots-link"><i class="icon-th-list"></i></a>
+      <a href="#/jots/new" id="NEW-LINK"><i class="icon-doc-new"></i></a>
     </li>
     <li>
-      <a href="#/logout" id="logout"><i class="icon-logout"></i></a>
+      <a href="#/logout" id="LOGOUT"><i class="icon-logout"></i></a>
     </li>
   <% } %>
 </ul>

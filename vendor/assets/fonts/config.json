@@ -67,6 +67,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "7222571caa5c15f83dcfd447c58d68d9",
+      "css": "search",
+      "code": 59420,
+      "src": "entypo"
+    },
+    {
       "uid": "3a230e539a4f3b904debd04c6c155034",
       "css": "help",
       "code": 59417,
@@ -154,6 +160,12 @@
       "uid": "15ba51cbb4d05e6fb88f03a31a7c711c",
       "css": "info-circled-alt",
       "code": 59415,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "da72ab64b02d997ff0521339f2997233",
+      "css": "hash",
+      "code": 59421,
       "src": "mfglabs"
     },
     {

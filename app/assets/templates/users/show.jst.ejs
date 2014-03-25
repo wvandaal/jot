@@ -4,45 +4,59 @@
     <img class="user-badge" src="https://secure.gravatar.com/avatar/<%= user.get('gravatar_id') %>">
     <h2><%= user.get('username') %>'s jots</h2>
   </header>
-  <div id="user-jots">
-    <ul class="jots-list">
-      <% if (!!jots.length) { %>
-        <% jots.forEach(function(jot) { %>
-          <li>
-            <h3 class="jot-title"><%= jot.escape('title') %></h3>
-            <span class="jot-description">
-              <%= jot.get('description') ? jot.escape('description') : "<em>no description</em>" %>
-            </span>
-          </li>
-        <% }); %>
-      <% } else { %>
-        <li>
-          <h3 class="jot-title">You don't have any jots yet</h3>
+  <ul class="jots-list">
+    <% if (!!jots.length) { %>
+      <% jots.forEach(function(jot) { %>
+        <li class="jot">
+          <h3 class="jot-title"><%= jot.escape('title') %></h3>
           <span class="jot-description">
-            <a href="#/jots/new">Click here</a> to create your first jot.
+            <%= jot.get('description') ? jot.escape('description') : "<em>no description</em>" %>
           </span>
         </li>
-      <% } %>
-    </ul>
-  </div>
+      <% }); %>
+    <% } else { %>
+      <li>
+        <h3 class="jot-title">You don't have any jots yet</h3>
+        <span class="jot-description">
+          <a href="#/jots/new">Click here</a> to create your first jot.
+        </span>
+      </li>
+    <% } %>
+  </ul>
 </div>
 
 <!-- Jot Preview -->
-<div id="jot-preview">
+<div id="JOT-PREVIEW">
   <header>
-    <h4 id="preview-title"><%= jots.first().escape('title') %></h4>
-    <span id="preview-description"><%= jots.first().escape('description') %></span>
+    <h4 id="PREVIEW-TITLE"></h4>
+    <span id="PREVIEW-DESCRIPTION"></span>
   </header>
-  <div id="markdown-output">
-    <%= this.renderPreview(jots.last().get('content')) %>
+  <div id="MARKDOWN-OUTPUT">
   </div>
   <footer>
     <nav>
       <ul>
         <li>
-          <a id="edit" href="#/jots/<%= jots.first().get('id') %>/edit">
+          <a id="VIEW">
+            <i class="icon-search"></i>
+            view
+          </a>
+        </li>
+        <li>
+          <a id="EDIT">
             <i class="icon-pencil"></i>
             edit
+          </a>
+        </li>
+        <li>
+          <button id="DOWNLOAD">
+            <i class="icon-down-circled"></i>
+            download
+          </button>
+        </li>
+        <li class="delete">
+          <a id="DELETE">
+            <i class="icon-trash"></i>
           </a>
         </li>
       </ul>

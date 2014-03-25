@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery.serializeJSON
+//= require jquery.fileDownload
 //= require jquery_ujs
 //= require turbolinks
 //= require underscore

@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
       sign_in(@user)
       render json: @user
     else
-      render json: @user.errors.full_messages, status: :unprocessable_entity
+      render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -22,9 +22,10 @@ class Api::UsersController < ApplicationController
     user = User.find(params[:id])
     if user
       user.destroy
-      render json: "Your account has been deleted."
+      render json: {msgs: ["Your account has been deleted."]}
     else
-      render json: "This account does not exist or cannot be deleted.", status: :unprocessable_entity
+      render json: {errors: ["This account does not exist or cannot be deleted."]}, 
+        status: :unprocessable_entity
     end
   end
 

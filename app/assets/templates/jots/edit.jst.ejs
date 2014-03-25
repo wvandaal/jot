@@ -1,0 +1,19 @@
+<form id="JOT-FORM">
+  <input type="text" name="entry[title]" id="JOT-TITLE" placeholder="Title" 
+    value="<%= jot.escape('title') %>" required>
+  <input type="text" name="entry[description]" id="JOT-DESCRIPTION" value="<%= jot.escape('description') %>"
+    placeholder="Optional description">
+  <textarea name="entry[content]" id="JOT-CONTENT" placeholder="Enter your markdown here" required>
+<%= jot.get('content') %>
+  </textarea>
+  <div id="MARKDOWN-OUTPUT">
+    <%= marked(jot.get('content')) %>
+  </div>
+  <div class="button-group">
+    <button type="button" class="save"><i class="icon-floppy"></i>save</button>
+    <button id="DOWNLOAD"><i class="icon-down-circled"></i>download</a>
+    <a href="#/jots/<%= jot.get('id') %>/delete"><i class="icon-trash"></i>delete</button></a>
+    <button type="button" class="resize-large"><i class="icon-resize-full"></i></button>
+  </div>
+</form>
+

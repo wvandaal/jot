@@ -27,6 +27,12 @@ $corner-radius: 0.35em;
   }
 }
 
+@mixin calc($property, $value) {
+  #{$property}: -webkit-calc(#{$value});
+  #{$property}:    -moz-calc(#{$value});
+  #{$property}:         calc(#{$value});
+}
+
 /* Animations */
 @include keyframes(fadeInUpBig) {
   0% {

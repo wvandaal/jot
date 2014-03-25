@@ -9,6 +9,10 @@ Jot.Views.SessionsNew = Backbone.View.extend({
     "click .signup": "renderSignup"
   },
 
+  initialize: function() {
+    this.render();
+  },
+
   render: function() {
     var content = this.template();
     this.$el.html(content);
@@ -19,24 +23,32 @@ Jot.Views.SessionsNew = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
 
-    var params = $(e.target).serializeJSON(),
-        user   = new Jot.Models.User(params),
-        $modal = $('.modal');
+    var params  = $(e.target).serializeJSON(),
+        session = new Jot.Models.Session(params),
+        $modal  = $('.modal');
 
-    user.authenticate({
+    session.save({}, {
       success: function(json) {
-        $modal.animate({top: -2000}, 750, function() {
-          $modal.remove();
-        });
+        var promise;
+
         Jot.currentUser = new Jot.Models.User(json);
-        Jot.renderNavbar();
+        promise = Jot.currentUser.fetch();
+
+        promise.done(function() {
+          $modal.animate({top: -2000}, 750, function() {
+            $modal.remove();
+            if (Backbone.history.fragment !== 'jots/new') {
+              Backbone.history.fragment = null;
+              Backbone.history.navigate('', {trigger: true});
+            }
+          });
+        });
       },
 
-      fail: function (errors) {
-        
+      error: function (model, errors) {
+        Jot.renderMessages(errors.responseJSON);
       }
     });
-
   },
 
   // Closes the modal if the click target is the modal itself

@@ -14,14 +14,14 @@ class User < ActiveRecord::Base
 
   # Overide as_json method to prevend exposing session_token and password
   def as_json(options={})
-    options[:except] ||= [:password_digest, :session_token, :email]
+    options[:except] ||= [:password_digest, :email]
     json = super
     json["gravatar_id"] = Digest::MD5::hexdigest(self.email)
     json
   end
 
   def to_json(options={})
-    options[:except] ||= [:password_digest, :session_token, :email]
+    options[:except] ||= [:password_digest, :email]
     super(methods: :gravatar_id)
   end
 

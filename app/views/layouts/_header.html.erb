@@ -1,26 +1,26 @@
-<div id="navbar">
+<div id="NAVBAR">
   <nav>
-    <%= link_to("jot.", root_url, id: "nav-logo") %>
+    <%= link_to("jot.", root_url, id: "NAV-LOGO") %>
     <ul>
       <% if !signed_in? %>
         <li>
-          <%= link_to("#/login", id: "login") do %>
+          <%= link_to("#/login", id: "LOGIN") do %>
             <i class="icon-login-1"></i>
           <% end %>
         </li>
       <% else %>
         <li>
-          <%= link_to(api_user_url(current_user), id: "profile-link") do %>
+          <%= link_to(api_user_url(current_user), id: "PROFILE-LINK") do %>
             <i class="icon-user"></i>
           <% end %>
         </li>
         <li>
-          <%= link_to(api_user_jots_url(current_user), id: "jots-link") do %>
+          <%= link_to(api_user_jots_url(current_user), id: "JOTS-LINK") do %>
             <i class="icon-th-list"></i>
           <% end %>
         </li>
         <li>
-          <%= link_to("#/logout", method: "delete", id: "logout") do %>
+          <%= link_to("#/logout", method: "delete", id: "LOGOUT") do %>
             <i class="icon-logout"></i>
           <% end %>
         </li>

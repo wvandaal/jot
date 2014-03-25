@@ -55,15 +55,16 @@ html, body {
   height: 100%;
   width: 100%;
   position: relative;
-  @include animation(fadeInUpBig 750ms ease-in-out);
+  // @include animation(fadeInUpBig 750ms ease-in-out);
 }
 
-#viewport {
+#VIEWPORT {
   height: 100%;
   width: 100%;
   margin: -3.5em auto 0;
   padding-top: 3.5em; 
   position: relative;
+  // overflow: hidden;
 }
 
 form {
@@ -92,13 +93,13 @@ form {
 }
 
 // Navbar Styles
-#navbar {
+#NAVBAR {
   > nav {
     width: 100%;
     position: relative;
     @include clearfix();
     z-index: 10;
-    > a#nav-logo {
+    > a#NAV-LOGO {
       text-decoration: none;
       font-family: 'Arvo', serif;
       font-size: 2em; 
@@ -135,7 +136,7 @@ form {
             font-size: 1.1em;
             display: inline-block;
           }
-          &#login:before {
+          &#LOGIN:before {
             font-size: 0.9em;
             color: $orange1;
             content: attr(id);
@@ -146,7 +147,7 @@ form {
           }
           &:hover {
             color: $orange1;
-            &#login:before {
+            &#LOGIN:before {
               @include transform(translateX(-10em));
             }
           }
@@ -157,7 +158,7 @@ form {
 }
 
 // Errors Styles
-#errors {
+#MESSAGES {
   position: absolute;
   width: 40%;
   left: 30%;
@@ -166,8 +167,13 @@ form {
   text-align: center;
   > ul {
     list-style-type: none;
-    color: $orange1;
     @include animation(1s fadeOut ease-in-out 5s);
+    > li.message {
+      color: $grey2;
+    }
+    > li.error {
+      color: $orange1;
+    }
   }
 }
 

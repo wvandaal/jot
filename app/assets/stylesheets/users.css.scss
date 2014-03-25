@@ -1,5 +1,8 @@
 .jots-nav { 
-  height: 95%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
   @include span-columns(5);
   > header {
     margin-left: 0.5em;
@@ -15,54 +18,56 @@
       letter-spacing: 0.01em;
     }
   }
-  > #user-jots {
+  > ul.jots-list {
+    margin: 0;  
+    padding: 0;
+    list-style: none;
+    bottom: 3em;
     overflow-y: scroll;
-    height: 85%;
-    position: relative;
-    ul.jots-list {
-      margin: 0;  
-      padding: 0;
-      list-style: none;
-      > li {
-        max-height: 6em;
-        padding: 1em;
-        border-top: 1px solid $grey0;
-        overflow-y: hidden;
-        &:last-child {border-bottom: 1px solid $grey0;}
-        &:hover {
-          background: $transparent-grey1;
-        }
-        > h3.jot-title {
-          margin: 0;
-        }
-        > span.jot-description {
-          color: $grey3;
-          font-size: 0.9em;
-        }
+    position: absolute;
+    bottom: 3em;
+    top: 5.5em;
+    > li.jot {
+      max-height: 6em;
+      padding: 1em;
+      border-top: 1px solid $grey0;
+      overflow-y: hidden;
+      &:last-child {border-bottom: 1px solid $grey0;}
+      &:hover, &.selected {
+        background: $transparent-grey1;
+      }
+      > h3.jot-title {
+        margin: 0;
+      }
+      > span.jot-description {
+        color: $grey3;
+        font-size: 0.9em;
       }
     }
   }
 }
 
-#jot-preview {
+#JOT-PREVIEW {
   @include span-columns(7);
-  height: 95%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;  
   > header {
     margin-top: 1em;
     width: 100%;
     height: 4.5em;
-    border-bottom: 1px solid $grey0;
+    // border-bottom: 1px solid $grey0;
     text-align: center;
     z-index: 10;
-    > h4#preview-title {
+    > h4#PREVIEW-TITLE {
       margin: 0.25em 0;
     }
-    > span#preview-description {
+    > span#PREVIEW-DESCRIPTION {
       font-size: 0.9em;
     }
   }
-  #markdown-output {
+  #MARKDOWN-OUTPUT {
     position: absolute;
     width: 100%;
     top: 6em;
@@ -71,6 +76,7 @@
     font-size: 0.9em;
   }
   > footer {
+    // border-top: 1px solid $grey0;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -78,15 +84,37 @@
     > nav {
       > ul {
         list-style-type: none;
-        float: left;
         padding: 0;
         > li {
+          float: left;
+          &.delete { 
+            float: right; 
+            > a, button { 
+              padding: 0.4em;
+              color: $grey3;
+              border-radius: 2em;
+              @include transition(all 500ms);
+              &:hover {
+                background: $orange1;
+                color: white;
+              }
+            }
+          }
           > a {
             text-decoration: none;
             color: $grey3;
-            & > i {font-size: 1.25em;}
-            padding: 0.25em 0.5em;
-            &:first-child {padding-left: 0;}
+            padding: 0.25em 1em 0.25em 0;
+            @include transition(color 500ms);
+            &:hover {
+              color: $orange1;
+            }
+          }
+          > button#DOWNLOAD {
+            outline: none;
+            border: none;
+            background: transparent;
+            padding: 0;
+            color: $grey3;
             @include transition(color 500ms);
             &:hover {
               color: $orange1;
