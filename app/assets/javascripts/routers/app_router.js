@@ -101,7 +101,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
       Jot.renderMessages();
       Jot.Messages = {};
     }
-    console.log(jj=view.$el);
+
     // Renders the view or empties the $viewport
     (!!!view ? $.fn.empty : $.fn.html).call(this.$viewport, view.$el);
   }

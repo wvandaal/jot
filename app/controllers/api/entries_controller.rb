@@ -17,6 +17,7 @@ class Api::EntriesController < ApplicationController
     if !@entry.nil?
       pdf = render_to_string  pdf:          "#{@entry.title}", 
                               template:     "entries/download",
+                              # Use show_as_html for debugging pdf output
                               # show_as_html: true,
                               redirect_delay: 2000,
                               disable_internal_links: false,
