@@ -121,23 +121,6 @@ $(document).ready(function(){
     }
   });
 
-  _marked = marked;
-
-  // Rewrite marked to prevent double-escaping of code blocks
-  window.marked = function(text) {
-    var tokens = _marked.lexer(text),
-        l      = tokens.length;
-
-    for (var i = 0, tok = tokens[i]; i < l; i++) {
-      if (tok.type === "code") {
-        tok.text = highlight(tok.text, tok.lang);
-        tok.escaped = true;
-      }
-    }
-
-    return _marked.parser(tokens); 
-  };
-
   // Create new diff object for use in Jot.View.JotsNew._insertWaypoint
   window.Differ = new diff_match_patch();
 

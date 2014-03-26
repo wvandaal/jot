@@ -58,7 +58,7 @@ gem 'normalize-rails'
 gem 'bourbon'
 gem 'neat'
 gem 'fontello_rails_converter'
-gem 'marked-rails'
+# gem 'marked-rails'
 
 # Wicked PDF Generator
 gem 'wkhtmltopdf-binary'

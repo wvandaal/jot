@@ -14,52 +14,62 @@
           </span>
         </li>
       <% }); %>
-    <% } else { %>
+    <% } else if (user.get('id') === Jot.currentUser.id) { %>
       <li>
         <h3 class="jot-title">You don't have any jots yet</h3>
         <span class="jot-description">
           <a href="#/jots/new">Click here</a> to create your first jot.
         </span>
       </li>
+    <% } else { %>
+      <li>
+        <h3 class="jot-title"><%= user.escape('username') %> doesn't have any jots yet</h3>
+      </li>
     <% } %>
   </ul>
 </div>
 
 <!-- Jot Preview -->
-<div id="JOT-PREVIEW">
-  <header>
-    <h4 id="PREVIEW-TITLE"></h4>
-    <span id="PREVIEW-DESCRIPTION"></span>
-  </header>
-  <div id="MARKDOWN-OUTPUT">
+<% if (!!jots.length) {  %>
+  <div id="JOT-PREVIEW">
+    <header>
+      <h4 id="PREVIEW-TITLE"></h4>
+      <span id="PREVIEW-DESCRIPTION"></span>
+    </header>
+    <div id="MARKDOWN-OUTPUT">
+    </div>
+    <footer>
+      <nav>
+        <ul>
+          <li>
+            <a id="VIEW">
+              <i class="icon-search"></i>
+              view
+            </a>
+          </li>
+          <% if (user.currentUser()) { %>
+            <li>
+              <a id="EDIT">
+                <i class="icon-pencil"></i>
+                edit
+              </a>
+            </li>
+          <% } %>
+          <li>
+            <button id="DOWNLOAD">
+              <i class="icon-down-circled"></i>
+              download
+            </button>
+          </li>
+          <% if (user.currentUser()) { %>
+            <li class="delete">
+              <a id="DELETE">
+                <i class="icon-trash"></i>
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      </nav>
+    </footer>
   </div>
-  <footer>
-    <nav>
-      <ul>
-        <li>
-          <a id="VIEW">
-            <i class="icon-search"></i>
-            view
-          </a>
-        </li>
-        <li>
-          <a id="EDIT">
-            <i class="icon-pencil"></i>
-            edit
-          </a>
-        </li>
-        <li>
-          <button id="DOWNLOAD">
-            <i class="icon-down-circled"></i>
-            download
-          </button>
-        </li>
-        <li class="delete">
-          <a id="DELETE">
-            <i class="icon-trash"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </footer>
-</div>
+<% } %>

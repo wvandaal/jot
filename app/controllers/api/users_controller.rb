@@ -3,8 +3,12 @@ class Api::UsersController < ApplicationController
   before_action :require_signed_out!, :only => [:create]
 
   def show
-    @user = User.find(params[:id])
-    render json: @user.as_json
+    @user = User.find_by_id(params[:id])
+    if !@user.nil?
+      render json: @user.as_json
+    else
+      render json: {errors: ["There is no user with an id of #{params[:id]}"]}, status: :not_found
+    end
   end
 
   def create

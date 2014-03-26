@@ -26,5 +26,9 @@ Jot.Models.User = Backbone.Model.extend({
     }
 
     return this._jots;
+  },
+
+  currentUser: function() {
+    return this.get('id') === Jot.currentUser.id;
   }
 });

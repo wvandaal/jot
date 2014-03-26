@@ -1,7 +1,7 @@
-// TODO: Remove _animateView
 Jot.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "home",
+    "users/:id": "showUser",
     "jots/new": "newJot",
     "jots/:id/edit": "editJot",
     "jots/:id": "showJot",
@@ -41,6 +41,26 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(view);
   },
 
+  showUser: function(id) {
+
+    var user    = new Jot.Models.User({id: id}),
+        promise = user.fetch(),
+        that    = this,
+        view;
+
+    promise.done(function() {
+      view = new Jot.Views.UsersShow({
+        model: user,
+        collection: user.jots()
+      });
+      window.user = user;
+      that._swapView(view);
+    }).fail(function(errors) {
+      Jot.Messages = errors.responseJSON;
+      that._swapView();
+    });
+  },
+
   editJot: function(id) {
 
     var jot   = new Jot.Models.Jot({id: id}),
@@ -61,30 +81,6 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   newJot: function () {
     var view = new Jot.Views.JotsNew();
     this._swapView(view);
-  },
-
-  // Animates views on transition and calls _swapView
-  _animateView: function(view, direction) {
-    var that        = this,
-        $container  = $('.container').first();
-
-    if (!!view) {
-      if ($container.length) {
-        $('.container').animate({top: -2000}, 1000, function(){
-          that._swapView(view);
-        });
-      } else {
-        this._swapView(view);
-      }
-    } else {
-      if ($container.length) {
-        $('.container').animate({top: -2000}, 1000, function(){
-          that._swapView(view);
-        });
-      } else {
-        this._swapView(view);
-      }
-    }
   },
 
   // Swaps views and removes zombies to prevent memory leaks

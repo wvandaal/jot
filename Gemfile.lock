@@ -89,7 +89,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    marked-rails (0.2.10.1)
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.0)
@@ -182,7 +181,6 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jslint_on_rails
-  marked-rails
   neat
   newrelic_rpm
   normalize-rails
