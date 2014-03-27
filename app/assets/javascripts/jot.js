@@ -111,18 +111,53 @@ Backbone.CompositeView = Backbone.View.extend({
 /////////////////////////
 // Launch Application! //
 /////////////////////////
+
+//TODO: Remove diff_match_patch 
 $(document).ready(function(){
-  var _marked;
+  var renderer = new marked.Renderer();
+
+  // Rewrites code method of marked renderer to allow for waypoint addition.
+  // By default, any necessary waypoint will be added to the end of code block.
+  renderer.code = function(code, lang, escaped, token) {
+    var waypoint    = '<span id="_WAYPOINT"></span>',
+        waypointInd = code.indexOf(waypoint);
+
+    // Adds test for empty code blocks to prevent escaping of whitespace characters
+    // by highlighter
+    if (this.options.highlight && code.match(/\w+/)) {
+      var out = this.options.highlight(code.replace(waypoint, ""), lang);
+      if (out != null && out !== code) {
+        token.escaped = true;
+        code = out;
+      }
+    }
+
+    if (!lang) {
+      return '<pre><code>'
+        + (token.escaped ? code : escape(code, true))
+        + (waypointInd !== -1 ? waypoint : "")
+        + '\n</code></pre>';
+    }
+
+    return '<pre><code class="'
+      + this.options.langPrefix
+      + escape(lang, true)
+      + '">'
+      + (token.escaped ? code : escape(code, true))
+      + (waypointInd !== -1 ? waypoint : "")
+      + '\n</code></pre>\n';
+  };
 
   // Set highlighting options for marked
   marked.setOptions({
     highlight: function (code) {
       return hljs.highlightAuto(code).value;
-    }
+    }, 
+    renderer: renderer
   });
 
   // Create new diff object for use in Jot.View.JotsNew._insertWaypoint
-  window.Differ = new diff_match_patch();
+  // window.Differ = new diff_match_patch();
 
   Jot.initialize();
 });

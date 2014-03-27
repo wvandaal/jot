@@ -40,8 +40,8 @@ form#JOT-FORM {
     @include span-columns(6);
     @include omega();
     #_WAYPOINT { 
-      visibility: hidden;
-      font-size: 0;
+      border-left: 1px solid black;
+      @include animation(blink 1s infinite);
     }
     > #PLACEHOLDER {
       color: #ccc;

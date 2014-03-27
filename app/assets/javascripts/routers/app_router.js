@@ -87,7 +87,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   _swapView: function(view) {
 
     this._currentView && this._currentView.remove();
-    this._currentView = view;
+    Jot._currentView = this._currentView = view;
 
     // Inserts the navbar
     Jot.renderNavbar();

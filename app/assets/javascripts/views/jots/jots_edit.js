@@ -1,6 +1,10 @@
+// TODO: Remove _renderMarkdown and _insertWaypoint
 Jot.Views.JotsEdit = Backbone.View.extend({
   className: 'container',
   template: JST['jots/edit'],
+  _prev: function() {
+    return !!this.model ? this.model.get('content') : '';
+  },
 
   events: {
     "submit form": "submit",
@@ -60,7 +64,10 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
   // Handles any keyup events
   handleKeyup: function() {
-    this._renderMarkdown();
+    if (!!this._timeout) {
+      window.clearTimeout(this._timeout)
+    }
+    this._timeout = window.setTimeout(this._renderMD.bind(this), 250);
   },
 
   // TODO: add additional hotkeys to allow greater editing functionality:
@@ -126,6 +133,61 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     }
   },
 
+  _renderMD: function() {
+    var md        = this._addWaypoint(),
+        $output   = this.$("#MARKDOWN-OUTPUT");
+
+    // Insert a new waypoint and render the content in the output div
+    $output.html(marked(md));
+
+    if (!!$output.find('#_WAYPOINT').length) {
+      // Scroll the output div to the waypoint minus half the output height
+      $output.scrollTop($output.scrollTop() +
+        $output.find('#_WAYPOINT').position().top -
+        $output.height()/2);
+    }
+  },
+
+  _addWaypoint: function() {
+    var $content  = this.$('#JOT-CONTENT'),
+        cur       = $content.val(),
+        waypoint  = '<span id="_WAYPOINT"></span>',
+        charRegx = /[a-z0-9]/i,
+        lastcharRegx  = /[a-z0-9](?=\W*$)/gi,
+        cursorPos = $content.prop('selectionStart'),
+        waypointInd, match;
+
+    // If the char at the cursor position is not a word char
+    if (!charRegx.test(cur[cursorPos])) {
+      match = charRegx.exec(cur.substring(cursorPos));
+
+      // If there is a word char after the cursor position
+      if (!!match) {
+
+        // Set the waypoint index to the cursor position + the index of next
+        // word character in the remaining substring
+        waypointInd = cursorPos + match.index;
+      } else {
+        match = lastcharRegx.exec(cur.substring(0, cursorPos));
+
+        // Else set the waypoint index to the index of the last word character
+        // in the previous substring
+        if (!!match) {
+          waypointInd = match.index - 1;
+        } else {
+          waypointInd = 0;
+        }
+      }
+    } else {
+
+      // If the character at the cursor position is a word character, set the
+      // waypoint index to the cursor position
+      waypointInd = cursorPos;
+    }
+
+    return cur.substring(0, waypointInd) + waypoint + cur.substring(waypointInd); 
+  },
+
   // Inserts a waypoint into the output markdown to allow scroll-following
   // in the output as the user edits within the textarea
   _insertWaypoint: function(prev, cur) {
@@ -174,7 +236,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
         input.selectionStart = input.selectionEnd = start + 1;
     }
 
-    this._renderMarkdown();
+    // this._renderMarkdown();
   },
 
   download: function(e) {
