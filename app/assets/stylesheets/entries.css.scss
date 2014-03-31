@@ -128,3 +128,53 @@ form#JOT-FORM {
     }
   }
 }
+
+
+#JOT-INFO {
+  @include span-columns(10);
+  @include shift(1);
+  > h1 {
+    margin: 0.25em 0;
+    float: left;
+  }
+  > .byline {
+    display: inline-block;
+    margin: 1.5em 0 0 0.5em;
+    color: $grey2;
+    > a {
+      text-decoration: none;
+      font-style: italic;
+      color: $grey2;
+      &:hover {
+        color: $orange1;
+        text-decoration: underline;
+      }
+    }
+  }
+  > h2 {
+    clear: both;
+    color: $grey3;
+    font-weight: 400;
+    font-size: 1.1em;
+    padding-bottom: 0.5em;
+    margin: 0.25em 0 0;
+    border-bottom: 1px solid $grey1;
+  }
+}
+#COMMENTS-HEADER {
+  @include span-columns(10);
+  @include shift(1);
+  border-top: 1px solid $grey1;
+  > h3 {
+    display: inline-block;
+  }
+}
+#JOT-WINDOW {
+  @include span-columns(10);
+  @include shift(1);
+  height: 25em;
+  overflow-y: scroll;
+  padding: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}

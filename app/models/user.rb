@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_reader :password, :password_confirmation
 
   has_many :entries
+  has_many :comments, inverse_of: :user
 
   validates :username, presence: true
   validates :password_digest, presence: {message: "Password can't be blank"}
@@ -16,9 +17,7 @@ class User < ActiveRecord::Base
   # Overide as_json method to prevend exposing session_token and password
   def as_json(options={})
     options[:except] ||= [:password_digest, :email]
-    json = super
-    json["gravatar_id"] = Digest::MD5::hexdigest(self.email)
-    json
+    super(methods: :gravatar_id)
   end
 
   def to_json(options={})

@@ -42,7 +42,6 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   },
 
   showUser: function(id) {
-
     var user    = new Jot.Models.User({id: id}),
         promise = user.fetch(),
         that    = this,
@@ -61,8 +60,28 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     });
   },
 
-  editJot: function(id) {
+  showJot: function(id) {
+    var jot      = new Jot.Models.Jot({id: id}),
+        that     = this,
+        promise  = jot.fetch(), 
+        view;
 
+    window.jj = jot;
+
+    promise.done(function() {
+      view = new Jot.Views.JotsShow({
+        model: jot,
+        collection: jot.comments()
+      });
+      that._swapView(view);
+    }).fail(function(errors) {
+      Jot.Messages = errors.responseJSON;
+      that._swapView();
+    });
+  },
+
+  // TODO: rewrite using promises and add error handling for failed fetch
+  editJot: function(id) {
     var jot   = new Jot.Models.Jot({id: id}),
         that  = this,
         view;

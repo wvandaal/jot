@@ -20,6 +20,7 @@
 //= require backbone-rails-sync
 //= require marked
 //= require highlight
+//= require moment
 //= require diff_match_patch
 //= require jot
 //= require_tree ../templates

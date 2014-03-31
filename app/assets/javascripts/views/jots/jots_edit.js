@@ -2,10 +2,7 @@
 Jot.Views.JotsEdit = Backbone.View.extend({
   className: 'container',
   template: JST['jots/edit'],
-  _prev: function() {
-    return !!this.model ? this.model.get('content') : '';
-  },
-
+  
   events: {
     "submit form": "submit",
     "click .save": "beforeSubmit",
@@ -152,7 +149,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     var $content  = this.$('#JOT-CONTENT'),
         cur       = $content.val(),
         waypoint  = '<span id="_WAYPOINT"></span>',
-        charRegx = /[a-z0-9]/i,
+        charRegx = /[a-z0-9\n]/i,
         lastcharRegx  = /[a-z0-9](?=\W*$)/gi,
         cursorPos = $content.prop('selectionStart'),
         waypointInd, match;

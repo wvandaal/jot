@@ -1,0 +1,46 @@
+#JOT-COMMENTS {
+  @include span-columns(10);
+  @include shift(1);
+  margin-top: -1em;
+  ul.comments {
+    list-style-type: none;
+    > li.comment {
+      padding-top: 1em;
+      position: relative;
+      > p, > a { margin-left: 64px; } 
+      > a {
+        font-size: 1em;
+        margin-bottom: 0.25em;
+        text-decoration: none;
+        font-weight: 600;
+        color: $grey3;
+        &:hover {
+          color: $orange1;
+        }
+        > img {
+          position: absolute;
+          left: 0;
+          top: 1.1em;
+          border-radius: 1.5em;
+          width: 3em;
+        }
+      }
+      > span.post-date{
+        position: relative;
+        top: 0.25em;
+        float: right;
+        font-style: italic;
+        font-size: 0.8em;
+      }
+      > p {
+        margin-top: 0.25em;
+        font-size: 0.9em;
+        min-height: 2em;
+      }
+    }
+  }
+  > ul.comments {
+    position: relative;
+    left: -2.5em;
+  }
+}

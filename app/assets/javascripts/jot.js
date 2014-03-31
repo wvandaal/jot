@@ -99,7 +99,7 @@ Backbone.CompositeView = Backbone.View.extend({
       $selectorEl.empty();
 
       subviews.forEach(function(subview) {
-        $selectorEl.append(subview.render.$el);
+        $selectorEl.append(subview.$el);
         subview.delegateEvents();
       });
     });
@@ -112,7 +112,7 @@ Backbone.CompositeView = Backbone.View.extend({
 // Launch Application! //
 /////////////////////////
 
-//TODO: Remove diff_match_patch 
+//TODO: Remove diff_match_patch (also from application.js)
 $(document).ready(function(){
   var renderer = new marked.Renderer();
 
