@@ -45,7 +45,7 @@ window.Jot = {
         $messages = $('#MESSAGES');
 
     $messages.html(view.$el);
-    $messages.children().delay(5000).fadeOut(1000);
+    $messages.children().delay(5000).fadeOut(1000, function() { this.remove(); });
   },
 
   renderNavbar: function(user) {
@@ -85,8 +85,31 @@ Backbone.CompositeView = Backbone.View.extend({
 
     selectorSubviews.push(subview);
 
-    $selectorEl.append(subview);
+    $selectorEl.append(subview.$el);
   }, 
+
+  // Overrides the default remove method to remove all associated subviews
+  remove: function () {
+    Backbone.View.prototype.remove.call(this);
+
+    // remove all subviews as well
+    _(this.subviews()).each(function (subviews, selector) {
+      _(subviews).each(function (subview){
+        subview.remove();
+      });
+    });
+  },
+
+  // Removes a specific subview from the composite view given a selector and
+  // an instance of a subview
+  removeSubview: function (selector, subview) {
+    var selectorSubviews =
+          this.subviews()[selector] || (this.subviews()[selector] = []),
+        subviewIndex = selectorSubviews.indexOf(subview);
+
+    selectorSubviews.splice(subviewIndex, 1);
+    subview.remove();
+  },
 
   renderSubviews: function() {
     var compView = this,

@@ -160,12 +160,13 @@ form {
 
 // Errors Styles
 #MESSAGES {
-  position: absolute;
+  position: fixed;
   width: 40%;
   left: 30%;
   top: 0;
   z-index: 30;
   text-align: center;
+  background: $transparent-white2;
   > ul {
     list-style-type: none;
     @include animation(1s fadeOut ease-in-out 5s);

@@ -1,5 +1,5 @@
 Jot.Views.JotsShow = Backbone.CompositeView.extend({
-  className: 'container jot-viewport',
+  className: 'container',
   template: JST['jots/show'],
 
   events: {
@@ -11,8 +11,11 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
         that    = this,
         comments;
 
+        window.cc = this.collection;
+
     promise.done(function() {
       comments = new Jot.Views.CommentsShow({
+        model: that.model,
         collection: that.collection
       });
       that.addSubview('#JOT-COMMENTS', comments);

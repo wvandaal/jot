@@ -73,9 +73,21 @@
       "src": "entypo"
     },
     {
+      "uid": "c709da589c923ba3c2ad48d9fc563e93",
+      "css": "cancel",
+      "code": 59423,
+      "src": "entypo"
+    },
+    {
       "uid": "3a230e539a4f3b904debd04c6c155034",
       "css": "help",
       "code": 59417,
+      "src": "entypo"
+    },
+    {
+      "uid": "b6fc2f656ef87275889422e19550680a",
+      "css": "reply",
+      "code": 59422,
       "src": "entypo"
     },
     {

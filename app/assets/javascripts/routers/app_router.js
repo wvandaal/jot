@@ -1,3 +1,7 @@
+// TODO:
+// 1) Add delete jots
+// 2) Add delete comments
+// 3) Add delete users
 Jot.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "home",
@@ -65,8 +69,6 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
         that     = this,
         promise  = jot.fetch(), 
         view;
-
-    window.jj = jot;
 
     promise.done(function() {
       view = new Jot.Views.JotsShow({

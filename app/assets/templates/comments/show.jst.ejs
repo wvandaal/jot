@@ -7,6 +7,16 @@
       </a>
       <span class="post-date"><%= moment(c.get('created_at')).fromNow() %></span>
       <p><%= c.escape('content') %></p>
+      <ul class="button-group">
+        <li class="reply" data-comment-id="<%= c.get('id') %>"><i class="icon-reply"></i> Reply</li>
+        <% if (c.get('user_id') === Jot.currentUser.id) { %>
+          <li class="delete">
+            <a href="#/comments/<%= c.get('id') %>/delete">
+              <i class="icon-cancel"></i> Delete
+            </a>
+          </li>
+        <% } %>
+      </ul>
       <% if (comments[c.get('id')]) { %>
         <ul class="comments" data-parent-id="<%= c.get('id') %>">
           <%= template({comments: comments, template: template, key: c.get('id')}) %>

@@ -37,10 +37,71 @@
         font-size: 0.9em;
         min-height: 2em;
       }
+      > ul.button-group {
+        @include clearfix;
+        position: relative;
+        top: -0.75em;
+        list-style-type: none;
+        margin: 0;
+        > li {
+          color: $grey2;
+          float: left;
+          margin-left: 1.75em;
+          font-size: 0.75em;
+          > a {
+            color: $grey2;
+            text-decoration: none;
+            &:hover {
+              color: $orange1;
+              cursor: pointer;
+            }
+          }
+          &:hover {
+            color: $orange1;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    > li.new-comment {
+      > form {
+        position: relative;
+        margin-left: 1.7em;
+        > textarea {
+          width: 100%;
+          resize: none;
+          height: 5em;
+          &:focus {
+            border: 1px solid $grey1;
+          }
+        }
+        > i.icon-cancel {
+          position: absolute;
+          top: 0em;
+          right: 0em;
+          padding: 0.25em;
+          &:hover {
+            color: $orange1;
+            cursor: pointer;
+          }
+        }
+        > button {
+          background: $orange1;
+          color: white;
+          padding: 0.5em 1.5em;
+          border: 1px solid $orange1;
+          font-size: 0.9em;
+          font-weight: 600;
+          letter-spacing: 0.025em;
+          @include transition(none);
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
     }
   }
   > ul.comments {
-    position: relative;
-    left: -2.5em;
+    padding: 0;
   }
 }
