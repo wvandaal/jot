@@ -93,7 +93,7 @@ form#JOT-FORM {
   }
 }
 
-#MARKDOWN-OUTPUT {
+#MARKDOWN-OUTPUT, #JOT-WINDOW {
   h1, h2, h3, h4, h5, h6 { margin: 0.25em 0 }
   h1 { 
     font-size: 2.5em;
@@ -164,9 +164,20 @@ form#JOT-FORM {
 #COMMENTS-HEADER {
   @include span-columns(10);
   @include shift(1);
-  border-top: 1px solid $grey1;
   > h3 {
     display: inline-block;
+  }
+  > button.reply {
+    outline: none;
+    border: none;
+    float: right;
+    background: transparent;
+    font-size: 0.75em;
+    color: $grey2;
+    padding: 2em 0;
+    &:hover {
+      color: $orange1;
+    }
   }
 }
 #JOT-WINDOW {
@@ -177,4 +188,25 @@ form#JOT-FORM {
   padding: 1em;
   margin-bottom: 1em;
   margin-top: 1em;
+}
+
+#JOT-ACTIONS {
+  @include span-columns(10);
+  @include shift(1);
+  text-align: center;
+  background: $grey0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  > li {
+    display: inline-block;
+    font-size: 1.5em;
+    padding: 0.25em 1em; 
+    > * {
+      color: $grey4;
+      &:hover {
+        color: $orange1;
+      }
+    }
+  }
 }

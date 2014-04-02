@@ -13,9 +13,9 @@ class Api::EntriesController < ApplicationController
   end
 
   def download
-    entry = Entry.find(params[:id])
-    if !entry.nil?
-      pdf = render_to_string  pdf:          "#{entry.title}", 
+    @entry = Entry.find(params[:id])
+    if !@entry.nil?
+      pdf = render_to_string  pdf:          "#{@entry.title}", 
                               template:     "entries/download",
                               # Use show_as_html for debugging pdf output
                               # show_as_html: true,
@@ -23,7 +23,7 @@ class Api::EntriesController < ApplicationController
                               disable_internal_links: false,
                               disable_external_links: false
 
-      send_data(pdf, filename: entry.title.parameterize, type: "application/pdf")
+      send_data(pdf, filename: @entry.title.parameterize, type: "application/pdf")
     else
       render json: {errors: ["There is no jot with an ID of #{params[:id]}"]}
     end

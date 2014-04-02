@@ -11,7 +11,6 @@ Jot.Views.JotsNew = Jot.Views.JotsEdit.extend({
     this.render();
   },
 
-  // Renders the view
   render: function() {
     var content = this.template();
     this.$el.html(content);
@@ -33,7 +32,6 @@ Jot.Views.JotsNew = Jot.Views.JotsEdit.extend({
         Jot.renderMessages(errors.responseJSON);
       }
     });
-
   },
 
   resetOutput: function() {
@@ -42,5 +40,4 @@ Jot.Views.JotsNew = Jot.Views.JotsEdit.extend({
 
     $output.html(placeholder);
   }
-
 });

@@ -8,11 +8,11 @@ Jot::Application.routes.draw do
 
     resources :jots, controller: 'entries', only: [:show, :update, :destroy, :create] do 
       member do
-        resources :comments, only: [:index, :create]
+        resources :comments, only: [:index]
         get 'download'
       end
     end
-    resources :comments, only: [:destroy]
+    resources :comments, only: [:destroy, :create]
     resource :session, only: [:create, :destroy, :show]
   end
 end

@@ -1,11 +1,10 @@
-<!-- User nav -->
 <div class="jots-nav">
   <header>
     <img class="user-badge" src="https://secure.gravatar.com/avatar/<%= user.get('gravatar_id') %>">
     <h2><%= user.get('username') %>'s jots</h2>
   </header>
   <ul class="jots-list">
-    <% if (!!jots.length) { %>
+    <% if (jots.length) { %>
       <% jots.forEach(function(jot) { %>
         <li class="jot">
           <h3 class="jot-title"><%= jot.escape('title') %></h3>
@@ -29,8 +28,7 @@
   </ul>
 </div>
 
-<!-- Jot Preview -->
-<% if (!!jots.length) {  %>
+<% if (jots.length) {  %>
   <div id="JOT-PREVIEW">
     <header>
       <h4 id="PREVIEW-TITLE"></h4>

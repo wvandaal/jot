@@ -1,8 +1,8 @@
-<% if (!!messages) { %>  
+<% if (messages) { %>  
   <% messages.forEach(function(m) { %>
     <li class="message"><%= m %></li>
   <% }); %>
-<% } if (!!errors) { %>
+<% } if (errors) { %>
   <% errors.forEach(function(e) { %>
     <li class="error"><%= e %></li>
   <% }); %>

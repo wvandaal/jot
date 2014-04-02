@@ -1,12 +1,9 @@
 <a href="#/" id="NAV-LOGO">jot.</a>
 <ul>
-  <!-- If the user isn't logged in -->
-  <% if (!!!user.get('id')) { %>
+  <% if (!user.get('id')) { %>
     <li>
       <a href="#/login" id="LOGIN"><i class="icon-login-1"></i></a>
     </li>
-
-  <!-- If the user is logged in -->
   <% } else { %>
     <li>
       <a href="#/" id="PROFILE-LINK"><i class="icon-user"></i></a>

@@ -28,7 +28,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     var view;
 
     // If logged in, root to profile page
-    if (!!Jot.currentUser && !!Jot.currentUser.get('id')) {
+    if (Jot.currentUser && Jot.currentUser.get('id')) {
       view = new Jot.Views.UsersShow({
         model: Jot.currentUser,
         collection: Jot.currentUser.jots()
@@ -40,11 +40,13 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(view);
   },
 
+  // Render the information page
   info: function() {
     var view = new Jot.Views.Info();
     this._swapView(view);
   },
 
+  // Users' profile page
   showUser: function(id) {
     var user    = new Jot.Models.User({id: id}),
         promise = user.fetch(),
@@ -56,7 +58,6 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
         model: user,
         collection: user.jots()
       });
-      window.user = user;
       that._swapView(view);
     }).fail(function(errors) {
       Jot.Messages = errors.responseJSON;
@@ -64,6 +65,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     });
   },
 
+  // View individual jots and their comments
   showJot: function(id) {
     var jot      = new Jot.Models.Jot({id: id}),
         that     = this,
@@ -82,23 +84,25 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     });
   },
 
-  // TODO: rewrite using promises and add error handling for failed fetch
+  // Edit and update jots
   editJot: function(id) {
-    var jot   = new Jot.Models.Jot({id: id}),
-        that  = this,
+    var jot     = new Jot.Models.Jot({id: id}),
+        that    = this,
+        promise = jot.fetch(),
         view;
 
-    jot.fetch({
-      success: function() {
-        view = new Jot.Views.JotsEdit({
-          model: jot
-        });
-        window.jj = jot;
-        that._swapView(view);
-      }
+    promise.done(function () {
+      view = new Jot.Views.JotsEdit({
+        model: jot
+      });
+      that._swapView(view);
+    }).fail(function(errors) {
+      Jot.Messages = errors.responseJSON;
+      that._swapView();
     });
   },
 
+  // Create a new jot
   newJot: function () {
     var view = new Jot.Views.JotsNew();
     this._swapView(view);
@@ -114,12 +118,12 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     Jot.renderNavbar();
 
     // Render any messages on the page
-    if (typeof Jot.Messages === 'object' && !!Object.keys(Jot.Messages).length) {
+    if (typeof Jot.Messages === 'object' && Object.keys(Jot.Messages).length) {
       Jot.renderMessages();
       Jot.Messages = {};
     }
 
     // Renders the view or empties the $viewport
-    (!!!view ? $.fn.empty : $.fn.html).call(this.$viewport, view.$el);
+    (!view ? $.fn.empty : $.fn.html).call(this.$viewport, view.$el);
   }
 });

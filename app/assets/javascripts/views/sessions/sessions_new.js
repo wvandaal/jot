@@ -1,5 +1,4 @@
 Jot.Views.SessionsNew = Backbone.View.extend({
-  tagName: 'div',
   className: 'modal',
   template: JST['sessions/new'],
 
@@ -48,7 +47,6 @@ Jot.Views.SessionsNew = Backbone.View.extend({
           });
         });
       },
-
       error: function (model, errors) {
         Jot.renderMessages(errors.responseJSON);
       }
@@ -68,8 +66,6 @@ Jot.Views.SessionsNew = Backbone.View.extend({
 
   renderSignup: function() {
     var signup = new Jot.Views.UsersNew();
-
     this.$el.html(signup.render().$el);
   }
-  
 });

@@ -1,8 +1,7 @@
-// TODO: Remove _renderMarkdown and _insertWaypoint
 Jot.Views.JotsEdit = Backbone.View.extend({
   className: 'container',
   template: JST['jots/edit'],
-  
+
   events: {
     "submit form": "submit",
     "click .save": "beforeSubmit",
@@ -42,7 +41,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     });
   },
 
-    // Resizes the markdown output, exposes the title and description inputs, and
+  // Resizes the markdown output, exposes the title and description inputs, and
   // changes the .save button to type="submit"
   beforeSubmit: function(e) {
     var $output = $('#MARKDOWN-OUTPUT'),
@@ -61,14 +60,12 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
   // Handles any keyup events
   handleKeyup: function() {
-    if (!!this._timeout) {
-      window.clearTimeout(this._timeout)
+    if (this._timeout) {
+      window.clearTimeout(this._timeout);
     }
     this._timeout = window.setTimeout(this._renderMD.bind(this), 250);
   },
 
-  // TODO: add additional hotkeys to allow greater editing functionality:
-  // 1) SUPER + '[' or ']' for indenting (allow use with selection)
   handleKeydown: function(e) {
     this._preventTabFocus(e);
   },
@@ -99,7 +96,6 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
     $output.animate({width: width}, interval);
 
-    // Chaining animations avoids jQuery flickering bug when animating margin
     $input.animate({width: width, padding: inputPad, margin: inputMarg}, interval)
       .promise().done(callback);
 
@@ -108,28 +104,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     $button.toggleClass('resize-large resize-small');
   },
 
-  // Renders the content of the #jot-cotent as markdown in the #markdown-output
-  // <div>. Note that this function uses a workaround to prevent double-escaping
-  // of highlighted code by manually calling the marked.lexer and .parser
-  _renderMarkdown: function() {
-    var md        = this.$("#JOT-CONTENT").val(),
-        $output   = this.$("#MARKDOWN-OUTPUT"),
-        prev      = $output.prop('innerHTML'),
-        cur       = marked(md);
-
-
-    // Insert a new waypoint and render the content in the output div
-    $output.html(this._insertWaypoint(prev, cur));
-
-    if (!!$output.find('#_WAYPOINT').length) {
-      
-      // Scroll the output div to the waypoint minus half the output height
-      $output.scrollTop($output.scrollTop() +
-        $output.find('#_WAYPOINT').position().top -
-        $output.height()/2);
-    }
-  },
-
+  // Render markdown based on textarea content when keyup is triggered
   _renderMD: function() {
     var md        = this._addWaypoint(),
         $output   = this.$("#MARKDOWN-OUTPUT");
@@ -137,7 +112,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     // Insert a new waypoint and render the content in the output div
     $output.html(marked(md));
 
-    if (!!$output.find('#_WAYPOINT').length) {
+    if ($output.find('#_WAYPOINT').length) {
       // Scroll the output div to the waypoint minus half the output height
       $output.scrollTop($output.scrollTop() +
         $output.find('#_WAYPOINT').position().top -
@@ -145,13 +120,16 @@ Jot.Views.JotsEdit = Backbone.View.extend({
     }
   },
 
+  // Adds a unique span element with an id of #_WAYPOINT, allowing for text
+  // following when markdown is rendered. Note: this method relies on custom
+  // renderer definition in main application file (jot.js). 
   _addWaypoint: function() {
-    var $content  = this.$('#JOT-CONTENT'),
-        cur       = $content.val(),
-        waypoint  = '<span id="_WAYPOINT"></span>',
-        charRegx = /[a-z0-9\n]/i,
+    var $content      = this.$('#JOT-CONTENT'),
+        cur           = $content.val(),
+        waypoint      = '<span id="_WAYPOINT"></span>',
+        charRegx      = /[a-z0-9]/i,
         lastcharRegx  = /[a-z0-9](?=\W*$)/gi,
-        cursorPos = $content.prop('selectionStart'),
+        cursorPos     = $content.prop('selectionStart'),
         waypointInd, match;
 
     // If the char at the cursor position is not a word char
@@ -159,7 +137,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
       match = charRegx.exec(cur.substring(cursorPos));
 
       // If there is a word char after the cursor position
-      if (!!match) {
+      if (match) {
 
         // Set the waypoint index to the cursor position + the index of next
         // word character in the remaining substring
@@ -169,11 +147,7 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
         // Else set the waypoint index to the index of the last word character
         // in the previous substring
-        if (!!match) {
-          waypointInd = match.index - 1;
-        } else {
-          waypointInd = 0;
-        }
+        waypointInd = (!match ? 0 : match.index - 1);
       }
     } else {
 
@@ -184,35 +158,6 @@ Jot.Views.JotsEdit = Backbone.View.extend({
 
     return cur.substring(0, waypointInd) + waypoint + cur.substring(waypointInd); 
   },
-
-  // Inserts a waypoint into the output markdown to allow scroll-following
-  // in the output as the user edits within the textarea
-  _insertWaypoint: function(prev, cur) {
-    var waypoint  = '<span id="_WAYPOINT">.</span>',
-        closeRegx = /<\/\w+>/,
-        _prev     = prev.replace(waypoint, ""),
-        diff, diffInd, waypointInd, match;
-
-    if (_prev !== cur) {
-      // Calculates the difference between the previous and current outputs
-      diff = Differ.diff_main(_prev, cur);
-
-      // Finds the index of the first difference
-      diffInd = !!diff[0] ? diff[0][1].length : 0;
-
-      // Searches for the nearest closing tag after the first difference
-      match = closeRegx.exec(cur.substring(diffInd));
-
-      // If there is a match, set the waypoint index to the sum of diffInd and
-      // the match index. If not, return the previous value
-      if (!!match) {
-        waypointInd = diffInd + match.index;
-        return cur.substring(0, waypointInd) + waypoint +
-          cur.substring(waypointInd);
-      } 
-    } 
-    return prev;
-  }, 
 
   // Allows users to indent using the 'tab' key
   _preventTabFocus: function(e) {
@@ -232,14 +177,12 @@ Jot.Views.JotsEdit = Backbone.View.extend({
         // Move the caret to the correct position and add +1 for the tab
         input.selectionStart = input.selectionEnd = start + 1;
     }
-
-    // this._renderMarkdown();
   },
 
+  // Requests the pdf generation from the server and downloads the resulting file
   download: function(e) {
     var id  = this.model.get('id'),
         url = 'api/jots/' + id + '/download';
     $.fileDownload(url);
   }
-
 });

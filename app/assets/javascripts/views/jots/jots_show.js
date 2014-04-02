@@ -3,15 +3,14 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
   template: JST['jots/show'],
 
   events: {
-    'click .reply': 'newComment'
+    'click .reply': 'newComment',
+    'click #DOWNLOAD': 'download'
   },
 
   initialize: function() {
     var promise = this.collection.fetch(),
         that    = this,
         comments;
-
-        window.cc = this.collection;
 
     promise.done(function() {
       comments = new Jot.Views.CommentsShow({
@@ -23,7 +22,7 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
     }).fail(function(errors) {
       Jot.Messages = errors.responseJSON;
       that.render();
-    })
+    });
   },
 
   render: function() {
@@ -35,6 +34,32 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
     this.renderSubviews();
 
     return this;
-  }
+  },
 
+  // Creates a new-comment form at the top-level and scrolls to it
+  newComment: function(e) {
+    var $commentsUL = this.$('[data-parent-id=""]'),
+        data = {
+          "parent_comment_id": "",
+          "entry_id": this.model.get('id')
+        },
+        view;
+
+    // If there is already a reply form rendered, return
+    if ($commentsUL.find('>li.new-comment').length) return;
+
+    view = new Jot.Views.CommentsNew({
+      collection: this.collection,
+      data: data
+    });
+
+    this.addSubview('[data-parent-id=""]', view);
+    $(window).scrollTop(view.$el.offset().top - $(window).height()/2);
+  },
+
+  download: function(e) {
+    var id  = this.model.get('id'),
+        url = 'api/jots/' + id + '/download';
+    $.fileDownload(url);
+  }
 });

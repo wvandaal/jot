@@ -32,6 +32,7 @@ Jot.Views.UsersShow = Backbone.View.extend({
     return marked(md);
   },
 
+  // Select the clicked jot and display it in the preview
   toggleJot: function(e) {
     var $jots = this.$('.jot').removeClass('selected'),
         $jot  = $(e.currentTarget),
@@ -41,6 +42,7 @@ Jot.Views.UsersShow = Backbone.View.extend({
     this.renderPreview(title);
   },
 
+  // Render the preview of the jot with the given title
   renderPreview: function(title) {
     var $title        = $('#PREVIEW-TITLE'),
         $description  = $('#PREVIEW-DESCRIPTION'),
@@ -61,10 +63,10 @@ Jot.Views.UsersShow = Backbone.View.extend({
     $output.html(this.renderMarkdown(jot.get('content')));
   },
 
+  // Request the file for download and save it when returned
   download: function(e) {
     var id  = $(e.currentTarget).data('id'),
         url = 'api/jots/' + id + '/download';
     $.fileDownload(url);
   }
-
 });

@@ -20,25 +20,6 @@
         return hljs.highlightAuto(code).value;
       }
     });
-
-    _marked = marked;
-
-    // Rewrite marked to prevent double-escaping of code blocks
-    window.marked = function(text) {
-      var tokens = _marked.lexer(text),
-          l      = tokens.length;
-
-      for (var i = 0, tok = tokens[i]; i < l; i++) {
-        if (tok.type === "code") {
-          tok.text = highlight(tok.text);
-          tok.escaped = true;
-        }
-      }
-
-      console.log(tokens[20]);
-
-      return _marked.parser(tokens); 
-    }
     
     // Decode escaped html
     function htmlDecode(input){

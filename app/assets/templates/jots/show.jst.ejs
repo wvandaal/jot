@@ -6,8 +6,18 @@
 <div id="JOT-WINDOW">
   <%= marked(jot.get('content')) %>
 </div>
+<ul id="JOT-ACTIONS">
+  <li id="DOWNLOAD"><i class="icon-down-circled"></i></li>
+  <% if (jot.get('user_id') === Jot.currentUser.get('id')) { %>
+    <li><a href="#/jots/<%= jot.get('id') %>/edit"><i class="icon-pencil"></i></a></li>
+    <li><a href="#/jots/<%= jot.get('id') %>/delete"><i class="icon-trash"></i></a></li>
+  <% } %>
+</ul>
 <header id="COMMENTS-HEADER">
   <h3>Comments</h3>
+  <button class="reply" data-comment-id="">
+    Comment on this Jot<i class="icon-comment"></i>
+  </button>
 </header>
 <div id="JOT-COMMENTS">
   

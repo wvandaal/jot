@@ -9,6 +9,8 @@ Jot.Views.CommentsNew = Backbone.View.extend({
   },
 
   initialize: function(options) {
+    // data stores information about jot and user which is placed in hidden
+    // inputs in the form
     this.data = options.data;
 
     this.render();
@@ -19,7 +21,6 @@ Jot.Views.CommentsNew = Backbone.View.extend({
       comment: this.data
     });
     this.$el.html(content);
-    console.log(this.$el);
 
     return this;
   },
@@ -31,8 +32,17 @@ Jot.Views.CommentsNew = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
     var data    = this.$('form').serializeJSON(),
-        comment = new Jot.Models.Comment(data);
-    
-    console.log(comment);
+        comment = new Jot.Models.Comment(data),
+        that    = this;
+  
+    comment.save({}, {
+      success: function(model) {
+        that.collection.add(model);
+        that.remove();
+      },
+      error: function(model, errors) {
+        Jot.renderMessages(errors.responseJSON);
+      }
+    });
   }
 });

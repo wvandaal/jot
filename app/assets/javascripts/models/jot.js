@@ -1,5 +1,4 @@
 Jot.Models.Jot = Backbone.Model.extend({
-
   urlRoot: "api/jots",
 
   comments: function() {
@@ -11,5 +10,4 @@ Jot.Models.Jot = Backbone.Model.extend({
 
     return this._comments;
   }
-
 });

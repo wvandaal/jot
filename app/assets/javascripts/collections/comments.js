@@ -24,7 +24,7 @@ Jot.Collections.Comments = Backbone.Collection.extend({
 
     // Self-invoking step function recursively builds subtree
     (function step() {
-      var keys = Object.keys(hash).map(function(k){ return parseInt(k); }), 
+      var keys = Object.keys(hash).map(function(k){ return parseInt(k, 10); }), 
           i    = 0,
           c, pid, cid;
 
