@@ -6,6 +6,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "home",
     "users/:id": "showUser",
+    "users": 'usersIndex',
     "jots/new": "newJot",
     "jots/:id/edit": "editJot",
     "jots/:id": "showJot",
@@ -57,6 +58,23 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
       view = new Jot.Views.UsersShow({
         model: user,
         collection: user.jots()
+      });
+      that._swapView(view);
+    }).fail(function(errors) {
+      Jot.Messages = errors.responseJSON;
+      that._swapView();
+    });
+  },
+
+  usersIndex: function() {
+    var users   = new Jot.Collections.Users(),
+        promise = users.fetch(),
+        that    = this,
+        view;
+
+    promise.done(function() {
+      view = new Jot.Views.UsersIndex({
+        collection: users
       });
       that._swapView(view);
     }).fail(function(errors) {

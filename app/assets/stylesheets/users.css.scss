@@ -91,8 +91,12 @@
           float: left;
           &.delete { 
             float: right; 
-            > a, button { 
+            > a, button {
+              outline: none;
+              border: none; 
               padding: 0.4em;
+              position: relative;
+              top: -0.4em;
               color: $grey3;
               border-radius: 2em;
               @include transition(all 500ms);
@@ -111,7 +115,7 @@
               color: $orange1;
             }
           }
-          > button#DOWNLOAD {
+          > button {
             outline: none;
             border: none;
             background: transparent;
@@ -126,5 +130,65 @@
       }
     }
   }
+}
 
+#SEARCH {
+  @include span-columns(12);
+  margin: 2em 0;
+  background: $grey0;
+  border: 1px solid $grey0;
+  outline: none;
+  padding: 1em;
+  border-radius: 0.25em;
+}
+ul.users-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 7em;
+  > li.user {
+    padding: 0.5em 0;
+    &:not(:first-child) {
+      border-top: 1px solid $transparent-grey1;
+    }
+    &:hover {
+      background: $orange1;
+      h3 {color: black;}
+      .member-date, .jot-count{ 
+        color: white; 
+      }
+    }
+    > a {
+      text-decoration: none;
+      > figure {
+        padding: 0.25em;
+        > img {
+          float: left;
+          width: 4em;
+          border-radius: 2em;
+          margin-right: 1em;
+        }
+        > figcaption {
+          @include clearfix;
+          > h3 {
+            color: $grey4;
+            margin: 0;  
+            font-weight: 100;
+          }
+          > span.member-date {
+            float: right;
+            font-size: 0.8em;
+            font-style: italic;
+            color: $grey3;
+          }
+          > span.jot-count {
+            font-weight: 600;
+            color: $orange1;
+            margin-top: 1em;
+            font-size: 0.9em;
+            float: left;
+          }
+        }
+      }
+    }
+  }
 }

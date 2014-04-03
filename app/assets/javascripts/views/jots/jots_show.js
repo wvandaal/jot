@@ -4,7 +4,8 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
 
   events: {
     'click .reply': 'newComment',
-    'click #DOWNLOAD': 'download'
+    'click #DOWNLOAD': 'download',
+    'click #DELETE': 'delete'
   },
 
   initialize: function() {
@@ -61,5 +62,16 @@ Jot.Views.JotsShow = Backbone.CompositeView.extend({
     var id  = this.model.get('id'),
         url = 'api/jots/' + id + '/download';
     $.fileDownload(url);
+  },
+
+  delete: function() {
+    var promise = this.model.destroy();
+
+    promise.done(function(msgs) {
+      Jot.Messages = msgs;
+      Backbone.history.navigate('', {trigger: true});
+    }).fail(function(errors) {
+      Jot.renderMessages(errors);
+    });
   }
 });

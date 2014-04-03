@@ -41,6 +41,8 @@ Jot.Views.Header = Backbone.View.extend({
           Jot.renderMessages(errors.responseJSON);
         }
       });
+    }).fail(function(model, errors) {
+      Jot.renderMessages(errors.responseJSON);
     });
   },
 

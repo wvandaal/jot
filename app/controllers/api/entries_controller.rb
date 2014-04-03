@@ -40,7 +40,7 @@ class Api::EntriesController < ApplicationController
   end
 
   def update
-    entry = current_user.entries.find(params[:id])
+    entry = current_user.entries.find_by_id(params[:id])
     if entry.nil?
       render json: {errors: ["You do not have permission to edit this jot"]}, status: :unauthorized
     else
@@ -53,7 +53,7 @@ class Api::EntriesController < ApplicationController
   end
 
   def destroy
-    entry = current_user.entries.where(id: params[:id])
+    entry = current_user.entries.find_by_id(params[:id])
     if entry
       entry.destroy
       render json: {msgs: ["Jot successfully deleted."]}

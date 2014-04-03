@@ -15,11 +15,13 @@ class Comment < ActiveRecord::Base
   validates :user, :content, presence: true
 
   def as_json(options={})
-    super(methods: [:author, :author_gravatar])
+    options[:methods] ||= [:author, :author_gravatar]
+    super
   end
 
   def to_json(options={})
-    super(methods: [:author, :author_gravatar])
+    options[:methods] ||= [:author, :author_gravatar]
+    super
   end
 
   def author

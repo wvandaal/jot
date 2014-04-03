@@ -2,7 +2,7 @@ Jot::Application.routes.draw do
   root to: "site#home"
 
   namespace :api do
-    resources :users, only: [:show, :create, :destroy] do
+    resources :users, only: [:show, :create, :destroy, :index] do
       resources :jots, only: [:index], controller: 'entries'
     end
 

@@ -5,7 +5,8 @@ Jot.Views.CommentsShow = Backbone.CompositeView.extend({
   attributes: {'data-parent-id': ''},
 
   events: {
-    'click .reply': 'newComment'
+    'click .reply': 'newComment',
+    'click .delete': 'deleteComment'
   },
 
   initialize: function() {
@@ -31,7 +32,7 @@ Jot.Views.CommentsShow = Backbone.CompositeView.extend({
     // Prevents multiple new-comment forms from being rendered
     e.stopPropagation();
 
-    var parentID  = $(e.currentTarget).data('comment-id'),
+    var parentID  = $(e.currentTarget.offsetParent).data('comment-id'),
         $parentLI = this.$('li[data-id="'+ parentID + '"]'),
         data = {
           "parent_comment_id": parentID,
@@ -67,5 +68,20 @@ Jot.Views.CommentsShow = Backbone.CompositeView.extend({
         });
 
     $commentList.prepend(commentLi);
+  },
+
+  // Delete comment and its subtree
+  deleteComment: function(e) {
+    var commentID = $(e.currentTarget.offsetParent).data('comment-id'),
+        comment   = this.collection.get(commentID),
+        promise   = comment.destroy(),
+        commentLi = $('li[data-id="' + commentID + '"]');
+
+    promise.done(function(msgs) {
+      commentLi.remove();
+      Jot.renderMessages(msgs);
+    }).fail(function(errors) {
+      Jot.renderMessages(msgs); 
+    })
   }
 });

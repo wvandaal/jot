@@ -1,17 +1,15 @@
 <li class="comment" data-id="<%= comment.get('id') %>">
   <a href="#/users/<%= comment.get('user_id') %>">
-    <img src="https://secure.gravatar.com/avatar/<%= comment.get('author_gravatar') %>" alt="">
+    <img src="https://secure.gravatar.com/avatar/<%= comment.get('author_gravatar') %>?d=mm" alt="">
     <%= comment.escape('author') %>
   </a>
   <span class="post-date"><%= moment(comment.get('created_at')).fromNow() %></span>
   <p><%= comment.escape('content') %></p>
-  <ul class="button-group">
-    <li class="reply" data-comment-id="<%= comment.get('id') %>"><i class="icon-reply"></i> Reply</li>
+  <ul class="button-group" data-comment-id="<%= comment.get('id') %>">
+    <li class="reply"><i class="icon-reply"></i> Reply</li>
     <% if (comment.get('user_id') === Jot.currentUser.id) { %>
       <li class="delete">
-        <a href="#/comments/<%= comment.get('id') %>/delete">
           <i class="icon-cancel"></i> Delete
-        </a>
       </li>
     <% } %>
   </ul>

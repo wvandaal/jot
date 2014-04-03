@@ -4,7 +4,8 @@ Jot.Views.UsersShow = Backbone.View.extend({
 
   events: {
     "click .jot": "toggleJot",
-    "click #DOWNLOAD": "download"
+    "click #DOWNLOAD": "download",
+    "click #DELETE": "delete"
   },
 
   initialize: function() {
@@ -44,6 +45,7 @@ Jot.Views.UsersShow = Backbone.View.extend({
 
   // Render the preview of the jot with the given title
   renderPreview: function(title) {
+    this._currentJot = this.collection.findWhere({title: title});
     var $title        = $('#PREVIEW-TITLE'),
         $description  = $('#PREVIEW-DESCRIPTION'),
         $output       = $('#MARKDOWN-OUTPUT'),
@@ -51,16 +53,15 @@ Jot.Views.UsersShow = Backbone.View.extend({
         $editLink     = $('#EDIT'),
         $downloadLink = $('#DOWNLOAD'),
         $deleteLink   = $('#DELETE'),
-        jot           = this.collection.findWhere({title: title}),
-        id            = jot.get('id');
+        id            = this._currentJot.get('id');
 
     $viewLink.attr('href', '#/jots/' + id );
     $editLink.attr('href', '#/jots/' + id + '/edit');
     $downloadLink.data('id', id);
     $deleteLink.attr('href', '#/jots/' + id + '/delete');
-    $title.html(jot.escape('title'));
-    $description.html(jot.escape('description'));
-    $output.html(this.renderMarkdown(jot.get('content')));
+    $title.html(this._currentJot.escape('title'));
+    $description.html(this._currentJot.escape('description'));
+    $output.html(this.renderMarkdown(this._currentJot.get('content')));
   },
 
   // Request the file for download and save it when returned
@@ -68,5 +69,18 @@ Jot.Views.UsersShow = Backbone.View.extend({
     var id  = $(e.currentTarget).data('id'),
         url = 'api/jots/' + id + '/download';
     $.fileDownload(url);
+  },
+
+  delete: function() {
+    var promise = this._currentJot.destroy(),
+        that    = this;
+
+    promise.done(function(msgs) {
+      that.$('[data-id="' + that._currentJot.get('id') + '"]').remove();
+      Jot.renderMessages(msgs);
+      that.$('.jot').first().trigger('click'); 
+    }).fail(function(model, errors) {
+      Jot.renderMessages(errors.responseJSON);
+    });
   }
 });

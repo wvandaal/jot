@@ -2,18 +2,16 @@
   <% comments[key].forEach(function(c) { %>
     <li class="comment" data-id="<%= c.get('id') %>">
       <a href="#/users/<%= c.get('user_id') %>">
-        <img src="https://secure.gravatar.com/avatar/<%= c.get('author_gravatar') %>" alt="">
+        <img src="https://secure.gravatar.com/avatar/<%= c.get('author_gravatar') %>?d=mm" alt="">
         <%= c.escape('author') %>
       </a>
       <span class="post-date"><%= moment(c.get('created_at')).fromNow() %></span>
       <p><%= c.escape('content') %></p>
-      <ul class="button-group">
-        <li class="reply" data-comment-id="<%= c.get('id') %>"><i class="icon-reply"></i> Reply</li>
+      <ul class="button-group" data-comment-id="<%= c.get('id') %>">
+        <li class="reply"><i class="icon-reply"></i> Reply</li>
         <% if (c.get('user_id') === Jot.currentUser.id) { %>
           <li class="delete">
-            <a href="#/comments/<%= c.get('id') %>/delete">
               <i class="icon-cancel"></i> Delete
-            </a>
           </li>
         <% } %>
       </ul>

@@ -41,11 +41,12 @@ Jot.Collections.Comments = Backbone.Collection.extend({
           hash[pid].push(c);
           hash[cid] = [];
           step();
-        } else
+        } else {
           // If the parent_comment_id or the comment id is less than the id of the
           // root of the subtree, prune it from the comments array, otherwise
           // increment i by 1
           (pid < id || cid < id) ? comments.splice(i, 1) : i++;
+        }
       }
     })();
 

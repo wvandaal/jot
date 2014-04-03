@@ -1,5 +1,5 @@
 class Entry < ActiveRecord::Base
-  belongs_to :user, inverse_of: :entries
+  belongs_to :user, inverse_of: :entries, counter_cache: true
   has_many :comments, inverse_of: :entry
 
   validates :title, presence: true, length: {minimum: 4}
@@ -8,11 +8,13 @@ class Entry < ActiveRecord::Base
   validates :description, length: {maximum: 255}
 
   def as_json(options={})
-    super(methods: :author)
+    options[:methods] ||= [:author]
+    super
   end
 
   def to_json(options={})
-    super(methods: :author)
+    options[:methods] ||= [:author]
+    super
   end
 
   def author

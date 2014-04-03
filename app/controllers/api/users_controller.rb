@@ -2,6 +2,11 @@ class Api::UsersController < ApplicationController
   before_action :require_signed_in!, :only => [:destroy]
   before_action :require_signed_out!, :only => [:create]
 
+  def index
+    users = User.order('entries_count DESC')
+    render json: users.as_json
+  end
+
   def show
     user = User.find_by_id(params[:id])
     if !user.nil?

@@ -15,7 +15,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find_by_id(params[:id])
+    comment = current_user.comments.find_by_id(params[:id])
     if !comment.nil?
       comment.destroy
       render json: {msgs: ["Comment successfully destroyed"]}

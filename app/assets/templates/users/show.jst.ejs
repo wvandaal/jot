@@ -1,12 +1,12 @@
 <div class="jots-nav">
   <header>
-    <img class="user-badge" src="https://secure.gravatar.com/avatar/<%= user.get('gravatar_id') %>">
+    <img class="user-badge" src="https://secure.gravatar.com/avatar/<%= user.get('gravatar_id') %>?d=mm">
     <h2><%= user.get('username') %>'s jots</h2>
   </header>
   <ul class="jots-list">
     <% if (jots.length) { %>
       <% jots.forEach(function(jot) { %>
-        <li class="jot">
+        <li class="jot" data-id="<%= jot.get('id') %>">
           <h3 class="jot-title"><%= jot.escape('title') %></h3>
           <span class="jot-description">
             <%= jot.get('description') ? jot.escape('description') : "<em>no description</em>" %>
@@ -61,9 +61,9 @@
           </li>
           <% if (user.currentUser()) { %>
             <li class="delete">
-              <a id="DELETE">
+              <button id="DELETE">
                 <i class="icon-trash"></i>
-              </a>
+              </button>
             </li>
           <% } %>
         </ul>
