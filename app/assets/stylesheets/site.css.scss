@@ -83,8 +83,8 @@
   }
 }
 
-#ABOUT {
-  overflow-y: scroll;
+#ABOUT, #HELP {
+  .logo {@include double-border();}
   > h1, > section {
     @include span-columns(10);
     @include shift(1);
@@ -94,6 +94,7 @@
     text-align: center; 
   }
   > section {
+    margin-bottom: 1em;
     > header {
       color: $grey3;
       > * {

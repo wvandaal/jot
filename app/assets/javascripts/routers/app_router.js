@@ -10,6 +10,7 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
     "jots/new": "newJot",
     "jots/:id/edit": "editJot",
     "jots/:id": "showJot",
+    "help": "help",
     "info": "info"
   },
 
@@ -44,6 +45,11 @@ Jot.Routers.AppRouter = Backbone.Router.extend({
   // Render the information page
   info: function() {
     var view = new Jot.Views.Info();
+    this._swapView(view);
+  },
+
+  help: function() {
+    var view = new Jot.Views.Help();
     this._swapView(view);
   },
 

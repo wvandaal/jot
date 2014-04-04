@@ -20,13 +20,9 @@ $corner-radius: 0.35em;
 
 /* Mixins */
 @mixin double-border() {
-  border-top: 2px solid $grey1;
+  padding-bottom: 1em;
   border-bottom: 2px solid $grey1;
   box-shadow: inset 0px -10px 0px 0px white, inset 0px -12px 0px 0px $grey1;
-  > header {
-    border-top: 2px solid $grey1;
-    margin-top: 10px;
-  }
 }
 
 @mixin calc($property, $value) {

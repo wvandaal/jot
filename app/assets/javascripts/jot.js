@@ -144,6 +144,12 @@ $(document).ready(function(){
       + '\n</code></pre>\n';
   };
 
+  // Unescape waypoint in codespans
+  renderer.codespan = function(text) {
+    var waypoint = '<span id="_WAYPOINT"></span>';
+    return '<code>' + text.replace(_.escape(waypoint), waypoint) +'</code>'
+  };
+
   // Set highlighting options for marked
   marked.setOptions({
     highlight: function (code) {

@@ -22,14 +22,10 @@ Jot.Views.UsersIndex = Backbone.View.extend({
   filter: function() {
     var letters = $('#SEARCH').val(),
         $users  = $('.user'),
-        matches = this.collection.search(letters),
-        ids     = matches.pluck('id');
+        ids     = this.collection.search(letters).pluck('id');
 
-    console.log(matches);
-    console.log(ids);
-
-    $users.each(function(i, u) {
-      (ids.indexOf($(u).data('id')) >= 0 ? $.fn.show : $.fn.hide).call($(u));
+    $users.each(function() {
+      (ids.indexOf($(this).data('id')) >= 0 ? $.fn.show : $.fn.hide).call($(this));
     });
   }
 });
