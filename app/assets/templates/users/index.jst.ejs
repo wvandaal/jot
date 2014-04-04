@@ -1,0 +1,17 @@
+<input type="text" id="SEARCH" placeholder="search for users">
+<ul class="users-list">
+  <% users.forEach(function(u) { %>
+    <li class="user" data-id="<%= u.get('id') %>">
+      <a href="#/users/<%= u.get('id') %>">
+        <figure>
+          <img src="https://secure.gravatar.com/avatar/<%= u.escape('gravatar_id') %>?d=mm" alt="<%= u.escape('username') %>" title="<%= u.escape('username') %>">
+          <figcaption>
+            <h3><%= u.escape('username') %></h3>
+            <span class="member-date">Joined <%= moment(u.get('created_at')).fromNow() %></span>
+            <span class="jot-count"><%= u.get('entries_count') + (u.get('entries_count') !== 1 ? " jots" : " jot") %></span>
+          </figcaption>
+        </figure>
+      </a>
+    </li>
+  <% }) %>
+</ul>
