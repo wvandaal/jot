@@ -1,4 +1,5 @@
 class Api::CommentsController < ApplicationController
+  before_action :require_signed_in!, :only => [:destroy, :create]
 
   def index
     comments = Entry.find_by_id(params[:id]).comments(include: :user).order(created_at: :desc)
